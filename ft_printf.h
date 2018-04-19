@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:48:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/04/18 22:31:47 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/04/19 17:52:36 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@
 
 typedef struct	s_str
 {
-	int		d;
-	char	*str;
 	char	type;
-	char	flags[3];
-	int		prec;
+	char	flags[4]; 
+	char	modifier[3];
+	int		precision;
 	int		width;
 }				t_str;
 
