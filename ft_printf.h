@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:48:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/04/19 17:52:36 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/04/19 20:01:36 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ typedef struct	s_str
 }				t_str;
 
 int		ft_printf(const char *format, ...);
+int		check_percent(const char *format, t_str *pf);
 
 #endif
