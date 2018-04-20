@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:37:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/04/19 20:05:53 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/04/20 11:26:36 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,18 +111,16 @@ int		ft_printf(const char *format, ...)
 	ft_bzero(pf->modifier, 3);
 	ft_bzero(pf->flags, 4);
 	va_start(ap, format);
-	while (format && *format != '%')
+	while (format && *format != '\0')
 	{
 		if (*format == '%' && *(format + 1) != '%')
 		{
-			if ((i = check_percent(format, pf)) == 0);
-			{
+			if ((i = check_percent(format, pf)) == 0)
 				format++;
-				continue ;
-			}
-			format += i;
+			else
+				format += i;
 		}
-		if (*format == '%' && *(format + 1) == '%')
+		else if (*format == '%' && *(format + 1) == '%')
 			format++;
 		ft_putchar(*format);
 		format++;
