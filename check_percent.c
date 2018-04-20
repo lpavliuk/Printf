@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 19:48:08 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/04/20 11:27:16 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/04/20 15:00:13 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,25 +47,44 @@ int		check_modifier(const char *format, int i, t_str *pf)
 	}
 }
 
+void	help_check_flag(const char *format, int i, int *k, t_str *pf)
+{
+	int is;
+
+	is = 0;
+	if (pf->flags[*k] != '\0' && format[i] != pf->flags[*k])
+	{
+		while (pf->flags[is] != format[i] && is < 3)
+			is++;
+		if (format[i] != pf->flags[is])
+			(*k)++;
+		else
+			return ;
+	}
+	pf->flags[*k] = format[i];
+}
+
 void	check_flags(const char *format, int *i, t_str *pf)
 {
 	int k;
+	int minus;
 
+	minus = 0;
 	k = 0;
-	if (format[*i] == '+' || format[*i] == '-')
+	while ((format[*i] == '0' || !ft_isdigit(format[*i])) && k < 4)
 	{
-		pf->flags[k] = format[*i];
-		k++;
+		if (format[*i] == '+' || format[*i] == '-')
+		{
+			if (format[*i] == '-')
+				minus++;
+			help_check_flag(format, *i, &k, pf);
+		}
+		if (format[*i] == '#')
+			help_check_flag(format, *i, &k, pf);
+		if (format[*i] == '0')
+			help_check_flag(format, *i, &k, pf);
 		(*i)++;
 	}
-	if (format[*i] == '#')
-	{
-		pf->flags[k] = format[*i];
-		(*i)++;
-		k++;
-	}
-	if (format[*i] == '0' && format[*i - k] != '-')
-		pf->flags[k] = format[*i];
 }
 
 int		check_percent(const char *format, t_str *pf)
