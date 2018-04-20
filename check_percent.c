@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 19:48:08 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/04/20 15:00:13 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/04/20 15:03:00 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	help_check_flag(const char *format, int i, int *k, t_str *pf)
 	is = 0;
 	if (pf->flags[*k] != '\0' && format[i] != pf->flags[*k])
 	{
-		while (pf->flags[is] != format[i] && is < 3)
+		while (pf->flags[is] != format[i] && is < 4)
 			is++;
 		if (format[i] != pf->flags[is])
 			(*k)++;
@@ -71,7 +71,7 @@ void	check_flags(const char *format, int *i, t_str *pf)
 
 	minus = 0;
 	k = 0;
-	while ((format[*i] == '0' || !ft_isdigit(format[*i])) && k < 4)
+	while ((format[*i] == '0' || !ft_isdigit(format[*i])) && k < 5)
 	{
 		if (format[*i] == '+' || format[*i] == '-')
 		{
@@ -82,6 +82,8 @@ void	check_flags(const char *format, int *i, t_str *pf)
 		if (format[*i] == '#')
 			help_check_flag(format, *i, &k, pf);
 		if (format[*i] == '0')
+			help_check_flag(format, *i, &k, pf);
+		if (format[*i] == ' ')
 			help_check_flag(format, *i, &k, pf);
 		(*i)++;
 	}
