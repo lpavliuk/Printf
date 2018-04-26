@@ -1,0 +1,4 @@
+gcc ft_printf.c main.c check_percent.c -o test -L libft/ -lft -I ./
+gcc -g ft_printf.c main.c check_percent.c -L libft/ -lft -I ./
+./test | cat -e
+rm -f test

@@ -57,7 +57,7 @@ int		ft_printf(const char *format, ...)
 				format++;
 			else
 				format += i;
-			check_type(format, pf);
+			//check_type(format, pf);
 		}
 		else if (*format == '%' && *(format + 1) == '%')
 			format++;
