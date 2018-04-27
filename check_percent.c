@@ -6,13 +6,13 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 19:48:08 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/04/20 15:55:40 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/04/27 19:15:19 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		separator(char c)
+static int		separator(char c)
 {
 	if (c != 's' && c != 'S' && c != 'p' && c != 'd'
 		&& c != 'D' && c != 'i' && c != 'o' &&
@@ -23,7 +23,7 @@ int		separator(char c)
 		return (0);
 }
 
-int		check_modifier(const char *format, int i, t_str *pf)
+static int		check_modifier(const char *format, int i, t_str *pf)
 {
 	int		k;
 
@@ -47,7 +47,7 @@ int		check_modifier(const char *format, int i, t_str *pf)
 	}
 }
 
-void	help_check_flag(const char *format, int i, int *k, t_str *pf)
+static void		help_check_flag(const char *format, int i, int *k, t_str *pf)
 {
 	int is;
 
@@ -64,7 +64,7 @@ void	help_check_flag(const char *format, int i, int *k, t_str *pf)
 	pf->flags[*k] = format[i];
 }
 
-void	check_flags(const char *format, int *i, t_str *pf)
+static void		check_flags(const char *format, int *i, t_str *pf)
 {
 	int k;
 	int minus;
@@ -79,17 +79,19 @@ void	check_flags(const char *format, int *i, t_str *pf)
 				minus++;
 			help_check_flag(format, *i, &k, pf);
 		}
-		if (format[*i] == '#')
+		else if (format[*i] == '#')
 			help_check_flag(format, *i, &k, pf);
-		if (format[*i] == '0')
+		else if (format[*i] == '0')
 			help_check_flag(format, *i, &k, pf);
-		if (format[*i] == ' ')
+		else if (format[*i] == ' ')
 			help_check_flag(format, *i, &k, pf);
+		else
+			return ;
 		(*i)++;
 	}
 }
 
-int		check_percent(const char *format, t_str *pf)
+int				check_percent(const char *format, t_str *pf)
 {
 	int	i;
 

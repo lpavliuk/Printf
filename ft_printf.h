@@ -16,6 +16,12 @@
 # include <stdarg.h>
 # include "libft/libft.h"
 
+# define FLAGS pf->flags
+# define TYPE pf->type
+# define MODF pf->modifier
+# define PREC pf->precision
+# define WIDTH pf->width
+
 typedef struct	s_str
 {
 	char	type;
@@ -27,5 +33,6 @@ typedef struct	s_str
 
 int		ft_printf(const char *format, ...);
 int		check_percent(const char *format, t_str *pf);
+void	write_type_c(va_list ap, t_str *pf);
 
 #endif
