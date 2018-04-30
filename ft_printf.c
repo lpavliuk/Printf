@@ -20,8 +20,8 @@ static int		check_type(va_list ap, t_str *pf)
 	i = 0;
 	if (TYPE == 'c' || TYPE == 'C')
 		i = write_type_c(ap, pf);
-	// else if (TYPE == 's' || TYPE == 'S')
-	// 	i = write_type_s(format, pf);
+	else if (TYPE == 's' || TYPE == 'S')
+	 	i = write_type_s(format, pf);
 	// else if (pf->type == 'd' || pf->type == 'D')
 	// 	i = write_type_d(format, pf);
 	// else if (pf->type == 'i')

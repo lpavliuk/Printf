@@ -28,13 +28,13 @@ static int		check_modifier(const char *format, int i, t_str *pf)
 	int		k;
 
 	k = 0;
-	pf->modifier[k] = format[i];
+	MODF[k] = format[i];
 	k++;
 	i++;
 	if ((format[i] == 'l' && format[i - 1] == 'l')
 		|| (format[i] == 'h' && format[i - 1] == 'h'))
 	{
-		pf->modifier[k] = format[i];
+		MODF[k] = format[i];
 		k++;
 		i++;
 	}
@@ -42,7 +42,7 @@ static int		check_modifier(const char *format, int i, t_str *pf)
 		return (i);
 	else
 	{
-		ft_strclr(pf->modifier);
+		ft_strclr(MODF);
 		return (0);
 	}
 }
@@ -52,16 +52,16 @@ static void		help_check_flag(const char *format, int i, int *k, t_str *pf)
 	int is;
 
 	is = 0;
-	if (pf->flags[*k] != '\0' && format[i] != pf->flags[*k])
+	if (FLAGS[*k] != '\0' && format[i] != FLAGS[*k])
 	{
-		while (pf->flags[is] != format[i] && is < 4)
+		while (FLAGS[is] != format[i] && is < 4)
 			is++;
-		if (format[i] != pf->flags[is])
+		if (format[i] != FLAGS[is])
 			(*k)++;
 		else
 			return ;
 	}
-	pf->flags[*k] = format[i];
+	FLAGS[*k] = format[i];
 }
 
 static void		check_flags(const char *format, int *i, t_str *pf)
@@ -97,11 +97,11 @@ int				check_percent(const char *format, t_str *pf)
 
 	i = 1;
 	check_flags(format, &i, pf);
-	pf->width = ft_atoi(format + i);
+	WIDTH = ft_atoi(format + i);
 	while (separator(format[i]) && format)
 	{
 		if (format[i] == '.')
-			pf->precision = ft_atoi(format + (++i));
+			PREC = ft_atoi(format + (++i));
 		else if (format[i] == 'h' || format[i] == 'l'
 			|| format[i] == 'j' || format[i] == 'z')
 		{
@@ -115,6 +115,6 @@ int				check_percent(const char *format, t_str *pf)
 		i++;
 	}
 	if (!separator(format[i]))
-		pf->type = format[i];
+		TYPE = format[i];
 	return (i + 1);
 }
