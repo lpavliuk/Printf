@@ -19,13 +19,13 @@ int		main(void)
 	int i = 123;
 	char c = 'A';
 	char *loc = setlocale(LC_ALL, "");
-
+	printf("MB_CUR_MAX: %i\n", MB_CUR_MAX);
 	ft_putendl("---------| MY PRINTF |---------");
 
-	ft_printf("Hello #%c!\n", 'T');
+	ft_printf("Hello # %C World %c!\n", -1, 65);
 
 	printf("-------------| ORIGINAL |-----------\n");
 
-	printf("Hello #%c!\n", 'T');
+	printf("Hello # %C World %c!\n", -1, 65);
 	return (0);
 }

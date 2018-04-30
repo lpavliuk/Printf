@@ -14,6 +14,7 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
+# include <wchar.h>
 # include "libft/libft.h"
 
 # define FLAGS pf->flags
@@ -29,10 +30,11 @@ typedef struct	s_str
 	char	modifier[3];
 	int		precision;
 	int		width;
+	char	buffer[1024];
 }				t_str;
 
 int		ft_printf(const char *format, ...);
 int		check_percent(const char *format, t_str *pf);
-void	write_type_c(va_list ap, t_str *pf);
+int		write_type_c(va_list ap, t_str *pf);
 
 #endif
