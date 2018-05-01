@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:12:06 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/01 18:13:10 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/01 20:26:41 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,17 @@ static int	work_with_width(wchar_t c_uni, char c, t_str *pf)
 	int	zero;
 	int i;
 
-	i = 0;
+	i = -1;
 	minus = 0;
 	zero = 0;
-	while (FLAGS[i++] != '\0')
+	while (FLAGS[++i] != '\0')
 	{
 		if (FLAGS[i] == '-')
 			minus++;
 		else if (FLAGS[i] == '0')
 			zero++;
 	}
-	if (TYPE == 'c' && MODF[0] == 'l')
+	if (TYPE == 'c' && MODF[0] == 'l' && MB_CUR_MAX == 4)
 		write_symbol_c_uni(c_uni, minus, zero, pf);
 	else if (TYPE == 'c')
 		write_symbol_c(c, minus, zero, pf);
@@ -99,7 +99,8 @@ int			write_type_c(va_list ap, t_str *pf)
 		c_uni = va_arg(ap, wchar_t);
 	else
 		c = va_arg(ap, int);
-	if (TYPE == 'C' && ((c_uni > 255 && MB_CUR_MAX == 1) || c_uni < 0))
+	if ((TYPE == 'C' || (TYPE == 'c' && MODF[0] == 'l'))
+		&& ((c_uni > 255 && MB_CUR_MAX == 1) || c_uni < 0))
 		return (1);
 	if (WIDTH != 0)
 		work_with_width(c_uni, c, pf);
@@ -107,14 +108,12 @@ int			write_type_c(va_list ap, t_str *pf)
 	{
 		if (TYPE == 'C' && MB_CUR_MAX == 4)
 			write_to_buffer(pf, c_uni);
-		else if (TYPE == 'C' && c_uni > 0 && c_uni <= 255)
+		else if (TYPE == 'C')
 			write_to_buffer(pf, c_uni);
 		else if (TYPE == 'c' && MODF[0] == 'l')
 			write_to_buffer(pf, c_uni);
 		else if (TYPE == 'c')
 			write_to_buffer(pf, c);
-		else
-			return (1);
 	}
 	return (0);
 }
