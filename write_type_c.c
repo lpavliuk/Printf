@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:12:06 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/01 16:03:50 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/01 18:13:10 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,16 @@ static int	work_with_width(wchar_t c_uni, char c, t_str *pf)
 	i = 0;
 	minus = 0;
 	zero = 0;
-	while (FLAGS[i] != '\0')
+	while (FLAGS[i++] != '\0')
 	{
 		if (FLAGS[i] == '-')
 			minus++;
 		else if (FLAGS[i] == '0')
 			zero++;
-		i++;
 	}
-	if (TYPE == 'c')
+	if (TYPE == 'c' && MODF[0] == 'l')
+		write_symbol_c_uni(c_uni, minus, zero, pf);
+	else if (TYPE == 'c')
 		write_symbol_c(c, minus, zero, pf);
 	else if (TYPE == 'C' && MB_CUR_MAX == 4 && c_uni > 255)
 		write_symbol_c_uni(c_uni, minus, zero, pf);
@@ -94,7 +95,7 @@ int			write_type_c(va_list ap, t_str *pf)
 	char	c;
 	wchar_t	c_uni;
 
-	if (TYPE == 'C')
+	if (TYPE == 'C' || (TYPE == 'c' && MODF[0] == 'l'))
 		c_uni = va_arg(ap, wchar_t);
 	else
 		c = va_arg(ap, int);
@@ -107,6 +108,8 @@ int			write_type_c(va_list ap, t_str *pf)
 		if (TYPE == 'C' && MB_CUR_MAX == 4)
 			write_to_buffer(pf, c_uni);
 		else if (TYPE == 'C' && c_uni > 0 && c_uni <= 255)
+			write_to_buffer(pf, c_uni);
+		else if (TYPE == 'c' && MODF[0] == 'l')
 			write_to_buffer(pf, c_uni);
 		else if (TYPE == 'c')
 			write_to_buffer(pf, c);
