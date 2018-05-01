@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:37:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/01 16:32:44 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/01 17:36:47 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,23 @@ static int		check_type(va_list ap, t_str *pf)
 	return (0);
 }
 
-void			check_buffer(t_str *pf, int turn_off)
+static void			check_buffer(t_str *pf, int turn_off, int clean_pf)
 {
 	if (turn_off || N > 1023)
 	{
 		ft_putstr(BUFFER);
 		ft_bzero(BUFFER, 1024);
+		pf->symbols += N;
 		N = 0;
 	}
-}
-
-static void		clean_pf(t_str *pf)
-{
-	WIDTH = 0;
-	PREC = 0;
-	TYPE = 0;
-	ft_bzero(MODF, 3);
-	ft_bzero(FLAGS, 4);
+	if (clean_pf)
+	{
+		WIDTH = 0;
+		PREC = 0;
+		TYPE = 0;
+		ft_bzero(MODF, 3);
+		ft_bzero(FLAGS, 4);
+	}
 }
 
 int				ft_printf(const char *format, ...)
@@ -71,11 +71,12 @@ int				ft_printf(const char *format, ...)
 	va_start(ap, format);
 	ft_bzero(BUFFER, 1024);
 	N = 0;
+	pf->symbols = 0;
 	while (format && *format != '\0')
 	{
 		if (*format == '%' && *(format + 1) != '%')
 		{
-			clean_pf(pf);
+			check_buffer(pf, 0, 1);
 			if ((i = check_percent(format, pf)) == 0)
 				format++;
 			else
@@ -89,12 +90,12 @@ int				ft_printf(const char *format, ...)
 		}
 		else if (*format == '%' && *(format + 1) == '%')
 			format++;
-		check_buffer(pf, 0);
+		check_buffer(pf, 0, 0);
 		BUFFER[N] = *format;
 		format++;
 		N++;
 	}
-	check_buffer(pf, 1);
+	check_buffer(pf, 1, 0);
 	va_end (ap);
 	if (i != 0)
 	{
@@ -107,5 +108,5 @@ int				ft_printf(const char *format, ...)
 	}
 	else
 		printf("Not valid percent or absent!\n");
-	return (0);
+	return (pf->symbols);
 }

@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:48:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/01 17:15:09 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/01 17:32:39 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct	s_str
 	int		width;
 	char	buffer[1024];
 	int		n;
+	int		symbols;
 }				t_str;
 
 int				ft_printf(const char *format, ...);
