@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:37:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/04/27 19:33:17 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/01 16:32:44 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static int		check_type(va_list ap, t_str *pf)
 	i = 0;
 	if (TYPE == 'c' || TYPE == 'C')
 		i = write_type_c(ap, pf);
-	else if (TYPE == 's' || TYPE == 'S')
-	 	i = write_type_s(format, pf);
+	// else if (TYPE == 's' || TYPE == 'S')
+	//  	i = write_type_s(format, pf);
 	// else if (pf->type == 'd' || pf->type == 'D')
 	// 	i = write_type_d(format, pf);
 	// else if (pf->type == 'i')
@@ -37,6 +37,16 @@ static int		check_type(va_list ap, t_str *pf)
 	if (i == 1)
 		return (1);
 	return (0);
+}
+
+void			check_buffer(t_str *pf, int turn_off)
+{
+	if (turn_off || N > 1023)
+	{
+		ft_putstr(BUFFER);
+		ft_bzero(BUFFER, 1024);
+		N = 0;
+	}
 }
 
 static void		clean_pf(t_str *pf)
@@ -56,8 +66,11 @@ int				ft_printf(const char *format, ...)
 	va_list	ap;
 
 	i = 0;
+	n = 0;
 	pf = malloc(sizeof(t_str));
-	va_start(ap, format);	
+	va_start(ap, format);
+	ft_bzero(BUFFER, 1024);
+	N = 0;
 	while (format && *format != '\0')
 	{
 		if (*format == '%' && *(format + 1) != '%')
@@ -68,14 +81,20 @@ int				ft_printf(const char *format, ...)
 			else
 				format += i;
 			if (check_type(ap, pf))
+			{
+				ft_bzero(BUFFER, 1024);
 				return (-1);
+			}
 			continue ;
 		}
 		else if (*format == '%' && *(format + 1) == '%')
 			format++;
-		ft_putchar(*format);
+		check_buffer(pf, 0);
+		BUFFER[N] = *format;
 		format++;
+		N++;
 	}
+	check_buffer(pf, 1);
 	va_end (ap);
 	if (i != 0)
 	{

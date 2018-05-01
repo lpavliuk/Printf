@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:48:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/04/19 20:01:36 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/01 17:15:09 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,24 @@
 # define MODF pf->modifier
 # define PREC pf->precision
 # define WIDTH pf->width
+# define BUFFER pf->buffer
+# define N pf->n
 
 typedef struct	s_str
 {
 	char	type;
-	char	flags[4]; 
+	char	flags[4];
 	char	modifier[3];
 	int		precision;
 	int		width;
 	char	buffer[1024];
+	int		n;
 }				t_str;
 
-int		ft_printf(const char *format, ...);
-int		check_percent(const char *format, t_str *pf);
-int		write_type_c(va_list ap, t_str *pf);
+int				ft_printf(const char *format, ...);
+int				check_percent(const char *format, t_str *pf);
+int				write_type_c(va_list ap, t_str *pf);
+void			write_to_buffer(t_str *pf, int c);
+void			write_space_to_buffer(t_str *pf, int *i);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: opavliuk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 12:40:45 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/04/26 13:31:06 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/01 17:01:17 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ size_t			ft_lstlen(t_list *list);
 void			ft_lstprint(t_list *list);
 void			ft_stralldel(char **str, size_t n);
 size_t			ft_count_words(char *str, char c);
+size_t			ft_count(int n);
 size_t			ft_sqrt(size_t n);
 int				get_next_line(const int fd, char **line);
 

@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 19:48:08 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/04/27 19:15:19 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/01 17:15:04 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int				check_percent(const char *format, t_str *pf)
 	i = 1;
 	check_flags(format, &i, pf);
 	WIDTH = ft_atoi(format + i);
+	write_space_to_buffer(pf, &i);
 	while (separator(format[i]) && format)
 	{
 		if (format[i] == '.')
@@ -108,10 +109,10 @@ int				check_percent(const char *format, t_str *pf)
 			if ((i = check_modifier(format, i, pf)) != 0)
 				break ;
 			else
-				return (0);
+				return (i);
 		}
 		else if (!ft_isdigit(format[i]))
-			return (0);
+			return (i);
 		i++;
 	}
 	if (!separator(format[i]))

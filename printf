@@ -1,3 +1,7 @@
-gcc ft_printf.c main.c check_percent.c write_type_c.c -o test -L libft/ -lft -I ./
+gcc ft_printf.c \
+	main.c \
+	check_percent.c \
+	write_type_c.c \
+	write_to_buffer.c -o test -L libft/ -lft -I ./
 ./test | cat -e
 rm -f test

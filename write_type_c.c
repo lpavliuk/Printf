@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:12:06 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/04/27 18:38:27 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/01 16:03:50 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,20 @@ static void	write_symbol_c_uni(wchar_t c_uni, int minus, int zero, t_str *pf)
 		i = 4;
 	if (minus)
 	{
-		ft_putchar(c_uni);
+		write_to_buffer(pf, c_uni);
 		while (WIDTH-- > i)
-			ft_putchar(' ');
+			write_to_buffer(pf, ' ');
 	}
 	else
 	{
 		while (WIDTH-- > i)
 		{
 			if (zero && !minus)
-				ft_putchar('0');
+				write_to_buffer(pf, '0');
 			else
-				ft_putchar(' ');
+				write_to_buffer(pf, ' ');
 		}
-		ft_putchar(c_uni);
+		write_to_buffer(pf, c_uni);
 	}
 }
 
@@ -44,20 +44,20 @@ static void	write_symbol_c(char c, int minus, int zero, t_str *pf)
 {
 	if (minus)
 	{
-		ft_putchar(c);
+		write_to_buffer(pf, c);
 		while (WIDTH-- > 1)
-			ft_putchar(' ');
+			write_to_buffer(pf, ' ');
 	}
 	else
 	{
 		while (WIDTH-- > 1)
 		{
 			if (zero && !minus)
-				ft_putchar('0');
+				write_to_buffer(pf, '0');
 			else
-				ft_putchar(' ');
+				write_to_buffer(pf, ' ');
 		}
-		ft_putchar(c);
+		write_to_buffer(pf, c);
 	}
 }
 
@@ -105,11 +105,11 @@ int			write_type_c(va_list ap, t_str *pf)
 	else
 	{
 		if (TYPE == 'C' && MB_CUR_MAX == 4)
-			ft_putchar(c_uni);
+			write_to_buffer(pf, c_uni);
 		else if (TYPE == 'C' && c_uni > 0 && c_uni <= 255)
-			ft_putchar(c_uni);
+			write_to_buffer(pf, c_uni);
 		else if (TYPE == 'c')
-			ft_putchar(c);
+			write_to_buffer(pf, c);
 		else
 			return (1);
 	}
