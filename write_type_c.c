@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:12:06 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/02 13:50:38 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/02 18:15:24 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,14 @@ static int	work_with_width(wchar_t c_uni, char c, t_str *pf)
 			ZERO++;
 	}
 	if ((TYPE == 'C' && MB_CUR_MAX == 4 && c_uni > 255) || (
-		TYPE == 'c' && MODF[0] == 'l' && (MB_CUR_MAX == 4
-		|| (c_uni > 0 && c_uni <= 255))))
+		TYPE == 'c' && MODF[0] == 'l' && MB_CUR_MAX == 4
+		&& c_uni > 255))
 		write_symbol_c_uni(c_uni, pf);
+	else if ((TYPE == 'C' && c_uni > 0 && c_uni <= 255)
+		|| (TYPE == 'c' && MODF[0] == 'l' && (c_uni > 0 && c_uni <= 255)))
+		write_symbol_c((int)c_uni, pf);
 	else if (TYPE == 'c')
 		write_symbol_c(c, pf);
-	else if (TYPE == 'C' && c_uni > 0 && c_uni <= 255)
-		write_symbol_c((int)c_uni, pf);
 	else
 		return (1);
 	return (0);

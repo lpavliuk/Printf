@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:37:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/02 14:20:10 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/02 18:14:58 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,23 +76,23 @@ int				ft_printf(const char *format, ...)
 	pf->symbols = 0;
 	while (format && *format != '\0')
 	{
+		check_buffer(pf, 0, 1);
 		if (*format == '%' && *(format + 1) != '%')
 		{
-			check_buffer(pf, 0, 1);
-			if ((i = check_percent(format, pf)) == 0)
-				format++;
-			else
+			if ((i = check_percent(format, pf)))
 				format += i;
 			if (check_type(ap, pf))
 			{
 				ft_bzero(BUFFER, 1024);
 				return (-1);
 			}
+			check_buffer(pf, 1, 1);
+			if (i == 0)
+				format++;
 			continue ;
 		}
 		else if (*format == '%' && *(format + 1) == '%')
 			format++;
-		check_buffer(pf, 0, 0);
 		BUFFER[N] = *format;
 		format++;
 		N++;
@@ -103,6 +103,7 @@ int				ft_printf(const char *format, ...)
 	{
 		printf("flags: %s\n", FLAGS);
 		printf("width: %d\n", WIDTH);
+		printf("dot: %d\n", DOT);
 		printf("precision: %d\n", PREC);
 		printf("modifier: %s\n", MODF);
 		printf("type: %c\n", TYPE);
