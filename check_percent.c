@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 19:48:08 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/02 18:15:23 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/02 18:48:20 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ static void		check_flags(const char *format, int *i, t_str *pf)
 			help_check_flag(format, *i, &k, pf);
 		else if (format[*i] == ' ')
 			help_check_flag(format, *i, &k, pf);
-		else if (format[*i] == '.' && !ft_isdigit(format[*i + 1]))
-			;
+		else if (format[*i] == '.' && format[*i + 1] == ' ')
+			DOT = 1;
 		else
 			return ;
 		(*i)++;
@@ -103,8 +103,8 @@ int				check_percent(const char *format, t_str *pf)
 	write_space_to_buffer(pf, &i);
 	while (separator(format[i]) && format)
 	{
-		if (format[i] == '.' && ++DOT)
-			PREC = ft_atoi(format + (++i));
+		if (format[i] == '.' && ++DOT && ++i)
+			PREC = ft_atoi(format + (i--));
 		else if (format[i] == 'h' || format[i] == 'l'
 			|| format[i] == 'j' || format[i] == 'z')
 		{
@@ -113,7 +113,7 @@ int				check_percent(const char *format, t_str *pf)
 		}
 		else if (!ft_isdigit(format[i]) && format[i] != ' ')
 			return (i);
-		if (separator(format[i]) && format[i] != '.')
+		if (separator(format[i]))
 			i++;
 	}
 	if (!separator(format[i]))

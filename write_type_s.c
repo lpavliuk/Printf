@@ -6,11 +6,13 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 12:46:02 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/02 18:15:22 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/02 18:54:42 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+
 
 static void	write_symbol_s(t_str *pf, unsigned char *str, int n)
 {
@@ -63,7 +65,10 @@ int			write_type_s(va_list ap, t_str *pf)
 {
 	int				n;
 	unsigned char	*str;
+	wchar_t			*str_uni;
 
+	if (TYPE == 'S' || (TYPE == 's' && MODF[0] == 'l'))
+		str_uni = va_arg(ap, wchar_t *);
 	if (TYPE == 's')
 		str = va_arg(ap, unsigned char *);
 	n = ft_strlen((const char *)str);
