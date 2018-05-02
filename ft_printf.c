@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:37:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/02 18:39:06 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/02 20:53:12 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int		check_type(va_list ap, t_str *pf)
 	int i;
 
 	i = 0;
-	if (TYPE == 'c' || TYPE == 'C')
+	if (TYPE == 'c' || TYPE == 'C' || TYPE == '%')
 		i = write_type_c(ap, pf);
 	else if (TYPE == 's' || TYPE == 'S')
 	    i = write_type_s(ap, pf);
@@ -55,6 +55,7 @@ void			check_buffer(t_str *pf, int turn_off, int clean_pf)
 		MINUS = 0;
 		ZERO = 0;
 		DOT = 0;
+		N_UNI = 0;
 		ft_bzero(MODF, 3);
 		ft_bzero(FLAGS, 4);
 	}
@@ -86,7 +87,7 @@ int				ft_printf(const char *format, ...)
 				ft_bzero(BUFFER, 1024);
 				return (-1);
 			}
-			check_buffer(pf, 1, 1);
+			//check_buffer(pf, 1, 1);
 			if (i == 0)
 				format++;
 			continue ;

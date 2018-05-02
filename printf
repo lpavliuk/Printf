@@ -3,6 +3,7 @@ gcc ft_printf.c \
 	check_percent.c \
 	write_type_c.c \
 	write_to_buffer.c \
-	write_type_s.c -o test -L libft/ -lft -I ./
+	write_type_s.c \
+	write_symbol_s_uni.c -o test -L libft/ -lft -I ./
 ./test | cat -e
 rm -f test
