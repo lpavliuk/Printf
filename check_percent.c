@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 19:48:08 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/01 20:14:19 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/02 14:20:02 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ static void		check_flags(const char *format, int *i, t_str *pf)
 			help_check_flag(format, *i, &k, pf);
 		else if (format[*i] == ' ')
 			help_check_flag(format, *i, &k, pf);
+		else if (format[*i] == '.')
+			DOT++;
 		else
 			return ;
 		(*i)++;

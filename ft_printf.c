@@ -6,12 +6,11 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:37:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/01 20:14:00 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/02 14:20:10 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 static int		check_type(va_list ap, t_str *pf)
 {
@@ -20,26 +19,26 @@ static int		check_type(va_list ap, t_str *pf)
 	i = 0;
 	if (TYPE == 'c' || TYPE == 'C')
 		i = write_type_c(ap, pf);
-//	else if (TYPE == 's' || TYPE == 'S')
-//	  	i = write_type_s(format, pf);
+	else if (TYPE == 's' || TYPE == 'S')
+	    i = write_type_s(ap, pf);
 	// else if (pf->type == 'd' || pf->type == 'D')
-	// 	i = write_type_d(format, pf);
+	// 	i = write_type_d(ap, pf);
 	// else if (pf->type == 'i')
-	// 	i = write_type_i(format, pf);
+	// 	i = write_type_i(ap, pf);
 	// else if (pf->type == 'o' || pf->type == 'O')
-	// 	i = write_type_o(format, pf);
+	// 	i = write_type_o(ap, pf);
 	// else if (pf->type == 'x' || pf->type == 'X')
-	// 	i = write_type_x(format, pf);
+	// 	i = write_type_x(ap, pf);
 	// else if (pf->type == 'u' || pf->type == 'U')
-	// 	i = write_type_u(format, pf);
+	// 	i = write_type_u(ap, pf);
 	// else if (pf->type == 'p')
-	// 	i = write_type_p(format, pf);
+	// 	i = write_type_p(ap, pf);
 	if (i == 1)
 		return (1);
 	return (0);
 }
 
-static void			check_buffer(t_str *pf, int turn_off, int clean_pf)
+void			check_buffer(t_str *pf, int turn_off, int clean_pf)
 {
 	if (turn_off || N > 1023)
 	{
@@ -53,6 +52,9 @@ static void			check_buffer(t_str *pf, int turn_off, int clean_pf)
 		WIDTH = 0;
 		PREC = 0;
 		TYPE = 0;
+		MINUS = 0;
+		ZERO = 0;
+		DOT = 0;
 		ft_bzero(MODF, 3);
 		ft_bzero(FLAGS, 4);
 	}

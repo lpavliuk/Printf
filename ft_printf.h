@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:48:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/01 17:32:39 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/02 14:19:38 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # define FLAGS pf->flags
 # define TYPE pf->type
 # define MODF pf->modifier
+# define MINUS pf->minus
+# define ZERO pf->zero
+# define DOT pf->dot
 # define PREC pf->precision
 # define WIDTH pf->width
 # define BUFFER pf->buffer
@@ -29,6 +32,9 @@ typedef struct	s_str
 {
 	char	type;
 	char	flags[4];
+	int		minus;
+	int		zero;
+	int		dot;
 	char	modifier[3];
 	int		precision;
 	int		width;
@@ -40,7 +46,10 @@ typedef struct	s_str
 int				ft_printf(const char *format, ...);
 int				check_percent(const char *format, t_str *pf);
 int				write_type_c(va_list ap, t_str *pf);
+int				write_type_s(va_list ap, t_str *pf);
 void			write_to_buffer(t_str *pf, int c);
 void			write_space_to_buffer(t_str *pf, int *i);
+void			check_buffer(t_str *pf, int turn_off, int clean_pf);
+void			ft_cpy_to_buffer(t_str *pf, unsigned char *code);
 
 #endif

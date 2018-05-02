@@ -6,19 +6,21 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 16:00:43 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/02 12:33:26 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/02 13:22:51 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	ft_cpy_to_buffer(t_str *pf, unsigned char *code)
+void	ft_cpy_to_buffer(t_str *pf, unsigned char *code)
 {
 	int i;
 
 	i = 0;
-	while (N < 1023 && code[i] != '\0')
+	while (code[i] != '\0')
 	{
+		if (N > 1023)
+			check_buffer(pf, 0, 0);
 		BUFFER[N] = code[i];
 		i++;
 		N++;

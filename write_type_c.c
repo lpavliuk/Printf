@@ -6,13 +6,13 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:12:06 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/02 12:39:26 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/02 13:50:38 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	write_symbol_c_uni(wchar_t c_uni, int minus, int zero, t_str *pf)
+static void	write_symbol_c_uni(wchar_t c_uni, t_str *pf)
 {
 	int i;
 
@@ -21,7 +21,7 @@ static void	write_symbol_c_uni(wchar_t c_uni, int minus, int zero, t_str *pf)
 		i = 3;
 	else if (c_uni > 65535 && c_uni <= 1114111)
 		i = 4;
-	if (minus)
+	if (MINUS)
 	{
 		write_to_buffer(pf, c_uni);
 		while (WIDTH-- > i)
@@ -31,7 +31,7 @@ static void	write_symbol_c_uni(wchar_t c_uni, int minus, int zero, t_str *pf)
 	{
 		while (WIDTH-- > i)
 		{
-			if (zero && !minus)
+			if (ZERO && !MINUS)
 				write_to_buffer(pf, '0');
 			else
 				write_to_buffer(pf, ' ');
@@ -40,9 +40,9 @@ static void	write_symbol_c_uni(wchar_t c_uni, int minus, int zero, t_str *pf)
 	}
 }
 
-static void	write_symbol_c(char c, int minus, int zero, t_str *pf)
+static void	write_symbol_c(char c, t_str *pf)
 {
-	if (minus)
+	if (MINUS)
 	{
 		write_to_buffer(pf, c);
 		while (WIDTH-- > 1)
@@ -52,7 +52,7 @@ static void	write_symbol_c(char c, int minus, int zero, t_str *pf)
 	{
 		while (WIDTH-- > 1)
 		{
-			if (zero && !minus)
+			if (ZERO && !MINUS)
 				write_to_buffer(pf, '0');
 			else
 				write_to_buffer(pf, ' ');
@@ -63,28 +63,24 @@ static void	write_symbol_c(char c, int minus, int zero, t_str *pf)
 
 static int	work_with_width(wchar_t c_uni, char c, t_str *pf)
 {
-	int	minus;
-	int	zero;
 	int i;
 
 	i = -1;
-	minus = 0;
-	zero = 0;
 	while (FLAGS[++i] != '\0')
 	{
 		if (FLAGS[i] == '-')
-			minus++;
+			MINUS++;
 		else if (FLAGS[i] == '0')
-			zero++;
+			ZERO++;
 	}
 	if ((TYPE == 'C' && MB_CUR_MAX == 4 && c_uni > 255) || (
 		TYPE == 'c' && MODF[0] == 'l' && (MB_CUR_MAX == 4
 		|| (c_uni > 0 && c_uni <= 255))))
-		write_symbol_c_uni(c_uni, minus, zero, pf);
+		write_symbol_c_uni(c_uni, pf);
 	else if (TYPE == 'c')
-		write_symbol_c(c, minus, zero, pf);
+		write_symbol_c(c, pf);
 	else if (TYPE == 'C' && c_uni > 0 && c_uni <= 255)
-		write_symbol_c((int)c_uni, minus, zero, pf);
+		write_symbol_c((int)c_uni, pf);
 	else
 		return (1);
 	return (0);
