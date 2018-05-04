@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:48:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/04 12:48:51 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/04 18:02:53 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stdarg.h>
 # include <wchar.h>
 # include "libft/libft.h"
+
+# include <stdio.h>
 
 # define TYPE pf->type
 # define MODF pf->modifier
@@ -48,12 +50,12 @@ typedef struct	s_str
 }				t_str;
 
 int				ft_printf(const char *format, ...);
-int				check_percent(const char *format, t_str *pf);
+int				check_percent(va_list ap, const char *format, t_str *pf);
 int				write_type_c(va_list ap, t_str *pf);
 int				write_type_s(va_list ap, t_str *pf);
 void			write_symbol_s_uni(t_str *pf, wchar_t *str_uni, int n);
 void			write_to_buffer(t_str *pf, int c);
-void			write_space_to_buffer(t_str *pf, int *i);
+void			write_space_to_buffer(t_str *pf, const char *format, int *i);
 void			check_buffer(t_str *pf, int turn_off, int clean_pf);
 void			ft_cpy_to_buffer(t_str *pf, unsigned char *code, int len);
 

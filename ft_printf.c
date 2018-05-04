@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:37:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/04 12:39:18 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/04 18:02:48 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int				ft_printf(const char *format, ...)
 		check_buffer(pf, 0, 1);
 		if (*format == '%' && *(format + 1) != '%')
 		{
-			if ((i = check_percent(format, pf)))
+			if ((i = check_percent(ap, format, pf)))
 				format += i;
 			if (check_type(ap, pf))
 			{

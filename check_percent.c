@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 19:48:08 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/04 12:40:09 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/04 18:02:34 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,18 +73,44 @@ static void		check_flags(const char *format, int *i, t_str *pf)
 	}
 }
 
-int				check_percent(const char *format, t_str *pf)
+static void		check_star(va_list ap, const char *format, t_str *pf, int *i)
+{
+	int n;
+
+	n = *i;
+	if (format[*i] == '*')
+	{
+		WIDTH = va_arg(ap, int);
+		while (format[n] != '.' && !ft_isalpha(format[n]))
+		{
+			if (format[n] == '0' && !ZERO)
+				ZERO++;
+			n++;
+		}
+	}
+	else if (format[*i] == '.' && format[*i + 1] == '*')
+	{
+		PREC = va_arg(ap, int);
+		(*i)++;
+	}
+	else if (format[*i] == '.')
+		PREC = ft_atoi(format + ++(*i));
+	else
+		WIDTH = ft_atoi(format + *i);
+}
+
+int				check_percent(va_list ap, const char *format, t_str *pf)
 {
 	int	i;
 
 	i = 1;
 	check_flags(format, &i, pf);
-	WIDTH = ft_atoi(format + i);
-	write_space_to_buffer(pf, &i);
+	check_star(ap, format, pf, &i);
+	write_space_to_buffer(pf, format, &i);
 	while (separator(format[i]) && format)
 	{
-		if (format[i] == '.' && ++DOT && ++i)
-			PREC = ft_atoi(format + (i--));
+		if (format[i] == '.' && ++DOT)
+			check_star(ap, format, pf, &i);
 		else if (format[i] == 'h' || format[i] == 'l'
 			|| format[i] == 'j' || format[i] == 'z')
 		{

@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 15:25:48 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/04 12:48:37 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/04 18:01:34 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ int		main(void)
 //	printf("MB_CUR_MAX: %i\n", MB_CUR_MAX);
 	ft_putendl("---------| MY PRINTF |---------");
 
-	n = ft_printf("%010.3ls and %-10c world\n", str_uni, 69);
+	n = ft_printf("%10.*ls and %10s world\n", 5, str_uni, str);
 	printf("ft_n: %d\n", n);
 
 	printf("-------------| ORIGINAL |-----------\n");
 
-	n = printf("%010.3ls and %-10c world\n", str_uni, 69);
+	n = printf("%10.*ls and %10s world\n", 5, str_uni, str);
 	printf("n: %d\n", n);
 	return (0);
 }
