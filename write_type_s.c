@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 12:46:02 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/02 21:21:57 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/04 12:29:45 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,21 +61,6 @@ static int	check_unicode_massive(wchar_t *str_uni)
 	return (n);
 }
 
-static void	check_flags(t_str *pf)
-{
-	int	i;
-
-	i = 0;
-	while (FLAGS[i] != '\0')
-	{
-		if (FLAGS[i] == '-')
-			MINUS++;
-		else if (FLAGS[i] == '0')
-			ZERO++;
-		i++;
-	}
-}
-
 int			write_type_s(va_list ap, t_str *pf)
 {
 	int				n;
@@ -95,7 +80,6 @@ int			write_type_s(va_list ap, t_str *pf)
 	if ((TYPE == 'S' || (TYPE == 's' && MODF[0] == 'l')) &&
 		((MB_CUR_MAX == 1 && check_unicode_massive(str_uni))))
 		return (1);
-	check_flags(pf);
 	if (TYPE == 'S' || (TYPE == 's' && MODF[0] == 'l'))
 		write_symbol_s_uni(pf, str_uni, n);
 	else if (TYPE == 's')

@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 19:48:08 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/02 19:47:24 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/04 12:40:09 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,44 +47,24 @@ static int		check_modifier(const char *format, int i, t_str *pf)
 	}
 }
 
-static void		help_check_flag(const char *format, int i, int *k, t_str *pf)
-{
-	int is;
-
-	is = 0;
-	if (FLAGS[*k] != '\0' && format[i] != FLAGS[*k])
-	{
-		while (FLAGS[is] != format[i] && is < 4)
-			is++;
-		if (format[i] != FLAGS[is])
-			(*k)++;
-		else
-			return ;
-	}
-	FLAGS[*k] = format[i];
-}
-
 static void		check_flags(const char *format, int *i, t_str *pf)
 {
 	int k;
-	int minus;
 
-	minus = 0;
 	k = 0;
 	while ((format[*i] == '0' || !ft_isdigit(format[*i])) && k < 5)
 	{
 		if (format[*i] == '+' || format[*i] == '-')
 		{
 			if (format[*i] == '-')
-				minus++;
-			help_check_flag(format, *i, &k, pf);
+				MINUS++;
 		}
 		else if (format[*i] == '#')
-			help_check_flag(format, *i, &k, pf);
+			HASH++;
 		else if (format[*i] == '0')
-			help_check_flag(format, *i, &k, pf);
+			ZERO++;
 		else if (format[*i] == ' ')
-			help_check_flag(format, *i, &k, pf);
+			SPACE++;
 		else if (format[*i] == '.' && format[*i + 1] == ' ')
 			DOT = 1;
 		else

@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:48:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/02 20:53:31 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/04 12:37:33 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@
 # include <wchar.h>
 # include "libft/libft.h"
 
-# define FLAGS pf->flags
+//# define FLAGS pf->flags
 # define TYPE pf->type
 # define MODF pf->modifier
+# define SPACE pf->space
+# define HASH pf->hash
 # define MINUS pf->minus
 # define ZERO pf->zero
 # define DOT pf->dot
@@ -31,18 +33,19 @@
 
 typedef struct	s_str
 {
-	char	type;
-	char	flags[4];
-	int		minus;
-	int		zero;
-	int		dot;
-	char	modifier[3];
-	int		precision;
-	int		width;
-	char	buffer[1024];
-	int		n;
-	int		symbols;
-	int		n_uni;
+	char		type;
+	short int	space;
+	short int	minus;
+	short int	zero;
+	short int	dot;
+	short int	hash;
+	char		modifier[3];
+	int			precision;
+	int			width;
+	char		buffer[1024];
+	int			n;
+	int			symbols;
+	int			n_uni;
 }				t_str;
 
 int				ft_printf(const char *format, ...);

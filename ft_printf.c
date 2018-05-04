@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:37:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/02 20:53:12 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/04 12:39:18 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void			check_buffer(t_str *pf, int turn_off, int clean_pf)
 	if (turn_off || N > 1023)
 	{
 		ft_putstr(BUFFER);
+		pf->symbols += ft_strlen(BUFFER);
 		ft_bzero(BUFFER, 1024);
-		pf->symbols += N;
 		N = 0;
 	}
 	if (clean_pf)
@@ -52,12 +52,13 @@ void			check_buffer(t_str *pf, int turn_off, int clean_pf)
 		WIDTH = 0;
 		PREC = 0;
 		TYPE = 0;
+		SPACE = 0;
+		HASH = 0;
 		MINUS = 0;
 		ZERO = 0;
 		DOT = 0;
 		N_UNI = 0;
 		ft_bzero(MODF, 3);
-		ft_bzero(FLAGS, 4);
 	}
 }
 
@@ -87,7 +88,7 @@ int				ft_printf(const char *format, ...)
 				ft_bzero(BUFFER, 1024);
 				return (-1);
 			}
-			//check_buffer(pf, 1, 1);
+			check_buffer(pf, 1, 1);
 			if (i == 0)
 				format++;
 			continue ;
@@ -102,7 +103,6 @@ int				ft_printf(const char *format, ...)
 	va_end (ap);
 	if (i != 0)
 	{
-		printf("flags: %s\n", FLAGS);
 		printf("width: %d\n", WIDTH);
 		printf("dot: %d\n", DOT);
 		printf("precision: %d\n", PREC);

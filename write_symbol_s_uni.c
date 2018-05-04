@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 20:46:54 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/02 21:02:04 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/04 12:29:18 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	write_unicode_to_buffer(t_str *pf, wchar_t *str_uni, int len)
 
 void		write_symbol_s_uni(t_str *pf, wchar_t *str_uni, int n)
 {
-	if ((!DOT && !PREC) || n <= PREC)
+	if ((!DOT && !PREC) || PREC)
 		PREC = count_unicode(pf, str_uni);
 	if (MINUS)
 	{

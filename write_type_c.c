@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:12:06 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/02 19:46:01 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/04 12:27:26 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,6 @@ static void	write_symbol_c(char c, t_str *pf)
 
 static int	work_with_width(wchar_t c_uni, char c, t_str *pf)
 {
-	int i;
-
-	i = -1;
-	while (FLAGS[++i] != '\0')
-	{
-		if (FLAGS[i] == '-')
-			MINUS++;
-		else if (FLAGS[i] == '0')
-			ZERO++;
-	}
 	if ((TYPE == 'C' && MB_CUR_MAX == 4 && c_uni > 255) || (
 		TYPE == 'c' && MODF[0] == 'l' && MB_CUR_MAX == 4
 		&& c_uni > 255))
