@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 19:48:08 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/04 18:02:34 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/04 21:50:03 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,10 @@ int				check_percent(va_list ap, const char *format, t_str *pf)
 			break ;
 		}
 		else if (!ft_isdigit(format[i]) && format[i] != ' ')
-			return (i);
+			break ;
 		if (separator(format[i]))
 			i++;
 	}
-	if (!separator(format[i]))
-		TYPE = format[i];
+	TYPE = format[i];
 	return ((i == 0) ? i : i + 1);
 }

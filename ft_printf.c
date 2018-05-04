@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:37:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/04 18:02:48 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/04 21:50:50 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ static int		check_type(va_list ap, t_str *pf)
 	int i;
 
 	i = 0;
-	if (TYPE == 'c' || TYPE == 'C' || TYPE == '%')
-		i = write_type_c(ap, pf);
-	else if (TYPE == 's' || TYPE == 'S')
+	if (TYPE == 's' || TYPE == 'S')
 	    i = write_type_s(ap, pf);
 	// else if (pf->type == 'd' || pf->type == 'D')
 	// 	i = write_type_d(ap, pf);
@@ -33,6 +31,8 @@ static int		check_type(va_list ap, t_str *pf)
 	// 	i = write_type_u(ap, pf);
 	// else if (pf->type == 'p')
 	// 	i = write_type_p(ap, pf);
+	else
+		i = write_type_c(ap, pf);
 	if (i == 1)
 		return (1);
 	return (0);
