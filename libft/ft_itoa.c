@@ -6,13 +6,13 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/26 13:40:25 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/01 17:00:20 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/06 17:00:17 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t			ft_count(int n)
+size_t			ft_count(intmax_t n)
 {
 	size_t c;
 

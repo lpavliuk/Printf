@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 19:48:08 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/06 13:25:21 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/06 18:00:00 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,15 @@ static void		check_star(va_list ap, const char *format, t_str *pf, int *i)
 	else if (format[*i] == '.' && format[*i + 1] == '*')
 	{
 		PREC = va_arg(ap, int);
-		(*i)++;
+		if (PREC >= 0)
+			(*i)++;
 	}
 	else if (format[*i] == '.' && ++(*i))
 		PREC = ft_atoi(format + (*i)--);
 	else
 		WIDTH = ft_atoi(format + *i);
+	if (PREC < 0 && ++(*i) && (DOT * 0))
+		PREC = 0;
 }
 
 int				check_percent(va_list ap, const char *format, t_str *pf)

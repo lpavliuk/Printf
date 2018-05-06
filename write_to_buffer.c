@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 16:00:43 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/06 13:25:24 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/06 18:01:10 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ void		write_space_to_buffer(t_str *pf, const char *format, int *i)
 	int n;
 	int x;
 
-	n = 0;
-	x = 0;
 	if (WIDTH)
 	{
 		n = N;
 		x = WIDTH;
-		while (x-- > 1)
+		if (x < 0)
+			x *= -1;
+		while (x-- >= 1)
 		{
 			if (ZERO && !MINUS)
 				write_to_buffer(pf, '0');
