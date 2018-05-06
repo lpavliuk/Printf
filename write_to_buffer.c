@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 16:00:43 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/04 17:33:01 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/06 13:25:24 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,7 @@ void		write_space_to_buffer(t_str *pf, const char *format, int *i)
 			*(i) += ft_count(WIDTH);
 		else
 			(*i)++;
+		if (MINUS && WIDTH > 0)
+			WIDTH *= -1;
 	}
 }

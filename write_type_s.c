@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 12:46:02 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/04 12:29:45 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/06 13:32:04 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ static void	write_symbol_s(t_str *pf, unsigned char *str, int n)
 {
 	if ((!DOT && !PREC) || n <= PREC)
 		PREC = n;
-	if (MINUS)
+	if (WIDTH < 0)
 	{
 		if (DOT && n >= PREC)
 			ft_cpy_to_buffer(pf, str, PREC);
 		else
 			ft_cpy_to_buffer(pf, str, n);
-		while (WIDTH-- > PREC)
+		while (WIDTH++ < (PREC * -1))
 			write_to_buffer(pf, ' ');
 	}
 	else

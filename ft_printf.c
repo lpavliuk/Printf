@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:37:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/04 21:50:50 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/06 13:21:19 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ static int		check_type(va_list ap, t_str *pf)
 	// else if (pf->type == 'p')
 	// 	i = write_type_p(ap, pf);
 	else
+	{
+		DOT = 0;
 		i = write_type_c(ap, pf);
+	}
 	if (i == 1)
 		return (1);
 	return (0);

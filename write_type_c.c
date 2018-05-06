@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:12:06 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/04 21:46:40 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/06 13:29:45 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ static void	write_symbol_c_uni(wchar_t c_uni, t_str *pf)
 		i = 3;
 	else if (c_uni > 65535 && c_uni <= 1114111)
 		i = 4;
-	if (MINUS)
+	if (WIDTH < 0)
 	{
+		i *= -1;
 		write_to_buffer(pf, c_uni);
-		while (WIDTH-- > i)
+		while (WIDTH++ < i)
 			write_to_buffer(pf, ' ');
 	}
 	else
@@ -42,10 +43,10 @@ static void	write_symbol_c_uni(wchar_t c_uni, t_str *pf)
 
 static void	write_symbol_c(char c, t_str *pf)
 {
-	if (MINUS)
+	if (WIDTH < 0)
 	{
 		write_to_buffer(pf, c);
-		while (WIDTH-- > 1)
+		while (WIDTH++ < -1)
 			write_to_buffer(pf, ' ');
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 19:48:08 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/04 21:50:03 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/06 13:25:21 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ static void		check_star(va_list ap, const char *format, t_str *pf, int *i)
 		PREC = va_arg(ap, int);
 		(*i)++;
 	}
-	else if (format[*i] == '.')
-		PREC = ft_atoi(format + ++(*i));
+	else if (format[*i] == '.' && ++(*i))
+		PREC = ft_atoi(format + (*i)--);
 	else
 		WIDTH = ft_atoi(format + *i);
 }
