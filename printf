@@ -4,6 +4,7 @@ gcc ft_printf.c \
 	write_type_c.c \
 	write_to_buffer.c \
 	write_type_s.c \
-	write_symbol_s_uni.c -o test -L libft/ -lft -I ./
+	write_symbol_s_uni.c \
+	ft_putnbr_base.c -o test -L libft/ -lft -I ./
 ./test | cat -e
 rm -f test

@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 15:25:48 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/06 13:33:32 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/06 14:43:10 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <locale.h>
 
-int		main(void)
+int		main(int argc, char **argv)
 {
 	int i = 123;
 	int n = 0;
@@ -32,5 +32,8 @@ int		main(void)
 
 	n = printf("%-20.5S and world\n", str_uni);
 	printf("n: %d\n", n);
+
+	if (argc > 1)
+		ft_putnbr_base(atoi(argv[1]), atoi(argv[2]), atoi(argv[3]));
 	return (0);
 }
