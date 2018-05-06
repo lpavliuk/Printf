@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 12:40:45 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/06 16:56:22 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/06 19:26:25 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ size_t			ft_lstlen(t_list *list);
 void			ft_lstprint(t_list *list);
 void			ft_stralldel(char **str, size_t n);
 size_t			ft_count_words(char *str, char c);
-size_t			ft_count(intmax_t n);
+size_t			ft_count(intmax_t n, short int base);
 size_t			ft_sqrt(size_t n);
 int				get_next_line(const int fd, char **line);
 

@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 14:03:23 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/06 16:15:58 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/06 19:33:53 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void	ft_unputnbr_base(uintmax_t n, short int base, char big, t_str *pf)
 		bases = "0123456789ABCDEF";
 	else
 		bases = "0123456789abcdef";
-	if (n >= base)
+	if (n >= (unsigned short int)base)
 	{
 		ft_putnbr_base((n / base), base, big, pf);
 		ft_putnbr_base((n % base), base, big, pf);
 	}
-	else if (n < base)
+	else if (n < (unsigned short int)base)
 		write_to_buffer(pf, bases[n]);
 }
 

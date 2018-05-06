@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:48:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/06 17:10:37 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/06 19:36:00 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void			write_space_to_buffer(t_str *pf, const char *format, int *i);
 void			check_buffer(t_str *pf, int turn_off, int clean_pf);
 void			ft_cpy_to_buffer(t_str *pf, unsigned char *code, int len);
 void			ft_putnbr_base(intmax_t n, short int base, char big, t_str *pf);
-void			ft_unputnbr_base(uintmax_t n, short int base, char big, t_str *pf);
+void			ft_unputnbr_base(uintmax_t n, short int base,
+											char big, t_str *pf);
 
 #endif

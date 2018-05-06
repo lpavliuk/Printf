@@ -1,4 +1,5 @@
-gcc ft_printf.c \
+gcc \
+	ft_printf.c \
 	main.c \
 	check_percent.c \
 	write_type_c.c \
