@@ -8,5 +8,5 @@ gcc \
 	write_symbol_s_uni.c \
 	ft_putnbr_base.c \
 	write_type_digital.c -o test -L libft/ -lft -I ./
-./test | cat -e
+./test 
 rm -f test
