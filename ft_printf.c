@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:37:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/06 19:29:22 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/07 13:14:26 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,11 @@ static int		check_type(va_list ap, t_str *pf)
 	if (TYPE == 's' || TYPE == 'S')
 	    i = write_type_s(ap, pf);
 	else if (TYPE == 'd' || TYPE == 'D' || TYPE == 'i'
-		|| pf->type == 'u' || pf->type == 'U'
-		|| pf->type == 'o' || pf->type == 'O')
+		|| TYPE == 'u' || TYPE == 'U')
 	 	i = write_type_digital(ap, pf);
-	// else if (pf->type == 'x' || pf->type == 'X')
-	// 	i = write_type_x(ap, pf);
-	// else if (pf->type == 'p')
-	// 	i = write_type_p(ap, pf);
+	else if (pf->type == 'x' || pf->type == 'X'
+		|| TYPE == 'o' || TYPE == 'O' || TYPE == 'p')
+	 	i = write_type_o_x_p(ap, pf);
 	else
 	{
 		DOT = 0;
@@ -78,7 +76,7 @@ int				ft_printf(const char *format, ...)
 	while (format && *format != '\0')
 	{
 		check_buffer(pf, 0, 1);
-		if (*format == '%' && *(format + 1) != '%')
+		if (*format == '%')
 		{
 			if ((i = check_percent(ap, format, pf)))
 				format += i;
@@ -92,8 +90,6 @@ int				ft_printf(const char *format, ...)
 				format++;
 			continue ;
 		}
-		else if (*format == '%' && *(format + 1) == '%')
-			format++;
 		BUFFER[N] = *format;
 		format++;
 		N++;

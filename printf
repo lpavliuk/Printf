@@ -7,6 +7,7 @@ gcc \
 	write_type_s.c \
 	write_symbol_s_uni.c \
 	ft_putnbr_base.c \
-	write_type_digital.c -o test -L libft/ -lft -I ./
-./test 
+	write_type_digital.c \
+	write_type_o_x_p.c -o test -L libft/ -lft -I ./
+./test | cat -e 
 rm -f test

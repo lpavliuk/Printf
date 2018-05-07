@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 16:09:05 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/06 19:36:01 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/07 13:05:43 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,7 @@ static void	write_to_buffer_un_digital(uintmax_t un_i, short int n, t_str *pf)
 		WIDTH = PREC;
 	if (WIDTH < 0)
 	{
-		if (TYPE == 'o' || TYPE == 'O')
-			ft_unputnbr_base(un_i, 8, 0, pf);
-		else
-			ft_unputnbr_base(un_i, 10, 0, pf);
+		ft_unputnbr_base(un_i, 10, 0, pf);
 		while (WIDTH++ < (n * (-1)))
 			write_to_buffer(pf, ' ');
 	}
@@ -99,10 +96,7 @@ static void	write_to_buffer_un_digital(uintmax_t un_i, short int n, t_str *pf)
 			else
 				write_to_buffer(pf, ' ');
 		}
-		if (TYPE == 'o' || TYPE == 'O')
-			ft_unputnbr_base(un_i, 8, 0, pf);
-		else
-			ft_unputnbr_base(un_i, 10, 0, pf);
+		ft_unputnbr_base(un_i, 10, 0, pf);
 	}
 }
 
@@ -117,19 +111,16 @@ int			write_type_digital(va_list ap, t_str *pf)
 		i = check_modifier_int(ap, pf);
 		n = ft_count(i, 10);
 	}
-	else if (TYPE == 'u' || TYPE == 'U' || TYPE == 'o' || TYPE == 'O')
+	else if (TYPE == 'u' || TYPE == 'U')
 	{
 		un_i = check_modifier_un_int(ap, pf);
-		if (TYPE == 'o' || TYPE == 'O')
-			n = ft_count(un_i, 8);
-		else
-			n = ft_count(un_i, 10);
+		n = ft_count(un_i, 10);
 	}
 	if (DOT || PREC)
 		ZERO = 0;
 	if (TYPE == 'd' || TYPE == 'i' || TYPE == 'D')
 		write_to_buffer_digital(i, n, pf);
-	else if (TYPE == 'u' || TYPE == 'U' || TYPE == 'o' || TYPE == 'O')
+	else if (TYPE == 'u' || TYPE == 'U')
 		write_to_buffer_un_digital(un_i, n, pf);
 	return (0);
 }
