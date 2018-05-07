@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:12:06 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/06 20:06:36 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/07 20:55:15 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ static void	write_symbol_c(char c, t_str *pf)
 {
 	if (WIDTH < 0)
 	{
-		write_to_buffer(pf, c);
+		if (c == 0)
+			BUFFER[N++] = '\0';
+		else
+			write_to_buffer(pf, c);
 		while (WIDTH++ < -1)
 			write_to_buffer(pf, ' ');
 	}
@@ -58,7 +61,10 @@ static void	write_symbol_c(char c, t_str *pf)
 			else
 				write_to_buffer(pf, ' ');
 		}
-		write_to_buffer(pf, c);
+		if (c == 0)
+			BUFFER[N++] = '\0';
+		else
+			write_to_buffer(pf, c);
 	}
 }
 

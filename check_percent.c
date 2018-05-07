@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 19:48:08 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/07 14:22:07 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/07 20:39:02 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,7 @@ static int		check_modifier(const char *format, int i, t_str *pf)
 		k++;
 		i++;
 	}
-	if (!separator(format[i]))
-		return (i);
-	else
-	{
-		ft_strclr(MODF);
-		return (0);
-	}
+	return (i);
 }
 
 static void		check_flags(const char *format, int *i, t_str *pf)
@@ -108,9 +102,11 @@ int				check_percent(va_list ap, const char *format, t_str *pf)
 
 	i = 1;
 	check_flags(format, &i, pf);
+	if (format[i] == '\0')
+		return (i);
 	check_star(ap, format, pf, &i);
 	write_space_to_buffer(pf, format, &i);
-	while (separator(format[i]) && format)
+	while (separator(format[i]) && format && format[i] != '\0')
 	{
 		if ((format[i] == '.' && ++DOT) || format[i] == '*')
 			check_star(ap, format, pf, &i);
@@ -118,6 +114,8 @@ int				check_percent(va_list ap, const char *format, t_str *pf)
 			|| format[i] == 'j' || format[i] == 'z')
 		{
 			i = check_modifier(format, i, pf);
+			if (format[i] == '\0')
+				return (i);
 			break ;
 		}
 		else if (!ft_isdigit(format[i]) && format[i] != ' ')
@@ -125,6 +123,7 @@ int				check_percent(va_list ap, const char *format, t_str *pf)
 		if (separator(format[i]))
 			i++;
 	}
-	TYPE = format[i];
+	if(format[i] != '\0')
+		TYPE = format[i];
 	return ((i == 0) ? i : i + 1);
 }
