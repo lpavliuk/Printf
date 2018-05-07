@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:42:10 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/07 14:28:41 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/07 16:52:27 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,20 @@ static void	write_to_buffer_un_digital(uintmax_t un_i, short int n, t_str *pf)
 	}
 	else
 	{
+		if (PREC >= n && WIDTH <= PREC)
+			check_hash(pf);
 		while (WIDTH-- > n)
 		{
-			if (WIDTH < PREC || (ZERO && !MINUS))
+			if ((WIDTH == PREC) && ((TYPE == 'o' && PREC < n)
+				|| TYPE == 'p' || TYPE == 'x' || TYPE == 'X'))
+				check_hash(pf);
+			else if (WIDTH < PREC || (ZERO && !MINUS))
 				write_to_buffer(pf, '0');
 			else
 				write_to_buffer(pf, ' ');
 		}
-		check_hash(pf);
+		if (PREC < n)
+			check_hash(pf);
 		to_buffer(un_i, pf);
 	}
 }
@@ -69,14 +75,20 @@ int			write_type_o_x_p(va_list ap, t_str *pf)
 		n = ft_count(un_i, 8);
 	else
 		n = ft_count(un_i, 16);
-	if ((TYPE == 'o' || TYPE == 'O') && HASH)
+	if ((TYPE == 'o' || TYPE == 'O') && HASH && PREC < n)
 		n++;
-	else if (TYPE == 'p' || ((TYPE == 'x' || TYPE == 'X') && HASH))
+	if ((TYPE == 'p' || ((TYPE == 'x' || TYPE == 'X') && HASH)))
 		n += 2;
+	else if (WIDTH < PREC)
+		n++;
 	if (DOT || PREC)
 		ZERO = 0;
-	if (PREC > WIDTH)
+	if (PREC > WIDTH && ++ZERO)
+	{
+		n -= 2;
 		WIDTH = PREC;
-	write_to_buffer_un_digital(un_i, n, pf);
+	}
+	if ((PREC && (PREC > n) && TYPE != 'o' && TYPE != 'O'))
+		WIDTH--;
 	return (0);
 }

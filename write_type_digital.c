@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 16:09:05 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/07 13:05:43 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/07 14:36:17 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ uintmax_t	check_modifier_un_int(va_list ap, t_str *pf)
 		un_i = (unsigned char)va_arg(ap, unsigned int);
 	else if (MODF[0] == 'z' && MODF[1] == '\0')
 		un_i = va_arg(ap, size_t);
-	else if (MODF[0] == 'j' && MODF[1] == '\0')
+	else if ((MODF[0] == 'j' && MODF[1] == '\0') || TYPE == 'p')
 		un_i = va_arg(ap, uintmax_t);
 	else
 		un_i = va_arg(ap, unsigned int);
