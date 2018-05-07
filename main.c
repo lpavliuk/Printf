@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 15:25:48 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/07 16:51:10 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/07 17:33:19 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ int		main(void)
 
 	ft_putendl("---------| MY PRINTF |---------");
 
-	n = ft_printf("integer: %#*p\n", 20, base);
+	n = ft_printf("integer: %#-5.10o\n", 2500);
 	printf("ft_n: %d\n", n);
 
 	printf("-------------| ORIGINAL |-----------\n");
 
-	n = printf("integer: %#*p\n", 20, base);
+	n = printf("integer: %#-5.10o\n", 2500);
 	printf("n: %d\n", n);
 
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:37:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/07 13:14:26 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/07 19:28:57 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ static int		check_type(va_list ap, t_str *pf)
 
 	i = 0;
 	if (TYPE == 's' || TYPE == 'S')
-	    i = write_type_s(ap, pf);
+		i = write_type_s(ap, pf);
 	else if (TYPE == 'd' || TYPE == 'D' || TYPE == 'i'
 		|| TYPE == 'u' || TYPE == 'U')
-	 	i = write_type_digital(ap, pf);
+		i = write_type_digital(ap, pf);
 	else if (pf->type == 'x' || pf->type == 'X'
 		|| TYPE == 'o' || TYPE == 'O' || TYPE == 'p')
-	 	i = write_type_o_x_p(ap, pf);
+		i = write_type_o_x_p(ap, pf);
 	else
 	{
 		DOT = 0;
@@ -59,20 +59,11 @@ void			check_buffer(t_str *pf, int turn_off, int clean_pf)
 	}
 }
 
-int				ft_printf(const char *format, ...)
+static int		work_while(const char *format, t_str *pf, va_list ap)
 {
-	t_str	*pf;
-	int		i;
-	int		n;
-	va_list	ap;
+	int i;
 
 	i = 0;
-	n = 0;
-	pf = malloc(sizeof(t_str));
-	va_start(ap, format);
-	ft_bzero(BUFFER, 1024);
-	N = 0;
-	pf->symbols = 0;
 	while (format && *format != '\0')
 	{
 		check_buffer(pf, 0, 1);
@@ -94,18 +85,24 @@ int				ft_printf(const char *format, ...)
 		format++;
 		N++;
 	}
+	return (0);
+}
+
+int				ft_printf(const char *format, ...)
+{
+	t_str	*pf;
+	int		i;
+	va_list	ap;
+
+	i = 0;
+	pf = malloc(sizeof(t_str));
+	va_start(ap, format);
+	ft_bzero(BUFFER, 1024);
+	N = 0;
+	pf->symbols = 0;
+	if ((i = work_while(format, pf, ap)) == -1)
+		return (-1);
 	check_buffer(pf, 1, 0);
-	va_end (ap);
-	if (i != 0)
-	{
-		printf("width: %d\n", WIDTH);
-		printf("dot: %d\n", DOT);
-		printf("precision: %d\n", PREC);
-		printf("modifier: %s\n", MODF);
-		printf("type: %c\n", TYPE);
-		printf("Well done!\n");
-	}
-	else
-		printf("Not valid percent or absent!\n");
+	va_end(ap);
 	return (pf->symbols);
 }
