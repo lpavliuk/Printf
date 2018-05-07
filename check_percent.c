@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 19:48:08 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/07 13:14:44 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/07 14:22:07 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int				check_percent(va_list ap, const char *format, t_str *pf)
 	write_space_to_buffer(pf, format, &i);
 	while (separator(format[i]) && format)
 	{
-		if (format[i] == '.' && ++DOT)
+		if ((format[i] == '.' && ++DOT) || format[i] == '*')
 			check_star(ap, format, pf, &i);
 		else if (format[i] == 'h' || format[i] == 'l'
 			|| format[i] == 'j' || format[i] == 'z')

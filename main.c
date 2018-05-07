@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 15:25:48 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/07 13:16:54 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/07 14:28:19 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ int		main(void)
 
 	ft_putendl("---------| MY PRINTF |---------");
 
-	n = ft_printf("integer: %20#O\n", 3000000);
+	n = ft_printf("integer: %*.*x\n", 10, 20, &base);
 	printf("ft_n: %d\n", n);
 
 	printf("-------------| ORIGINAL |-----------\n");
 
-	n = printf("integer: %20#O\n", 3000000);
+	n = printf("integer: %*.*x\n", 10, 20, &base);
 	printf("n: %d\n", n);
 
 	return (0);
