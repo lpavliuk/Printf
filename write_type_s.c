@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 12:46:02 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/06 13:32:04 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/08 17:20:28 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,20 +67,23 @@ int			write_type_s(va_list ap, t_str *pf)
 	unsigned char	*str;
 	wchar_t			*str_uni;
 
+	n = -1;
 	if (TYPE == 'S' || (TYPE == 's' && MODF[0] == 'l'))
 	{
-		str_uni = va_arg(ap, wchar_t *);
-		n = ft_strlen((const char *)str_uni);
+		if ((str_uni = va_arg(ap, wchar_t *)))
+			n = ft_strlen((const char *)str_uni);
 	}
-	else if (TYPE == 's')
+	else
 	{
-		str = va_arg(ap, unsigned char *);
-		n = ft_strlen((const char *)str);
+		if ((str = va_arg(ap, unsigned char *)))
+			n = ft_strlen((const char *)str);
 	}
-	if ((TYPE == 'S' || (TYPE == 's' && MODF[0] == 'l')) &&
+	if (n == -1)
+		write_symbol_s(pf, (unsigned char *)"(null)", 6);
+	else if ((TYPE == 'S' || (TYPE == 's' && MODF[0] == 'l')) &&
 		((MB_CUR_MAX == 1 && check_unicode_massive(str_uni))))
 		return (1);
-	if (TYPE == 'S' || (TYPE == 's' && MODF[0] == 'l'))
+	else if (TYPE == 'S' || (TYPE == 's' && MODF[0] == 'l'))
 		write_symbol_s_uni(pf, str_uni, n);
 	else if (TYPE == 's')
 		write_symbol_s(pf, str, n);

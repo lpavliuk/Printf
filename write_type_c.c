@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:12:06 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/07 20:55:15 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/08 18:07:23 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,13 @@ static void	write_symbol_c(char c, t_str *pf)
 
 static int	work_with_width(wchar_t c_uni, char c, t_str *pf)
 {
-	if ((TYPE == 'C' && MB_CUR_MAX == 4 && c_uni > 255) || (
-		TYPE == 'c' && MODF[0] == 'l' && MB_CUR_MAX == 4
-		&& c_uni > 255))
+	if ((TYPE == 'C' || (TYPE == 'c' && MODF[0] == 'l')) && c_uni > 255)
 		write_symbol_c_uni(c_uni, pf);
-	else if (((TYPE == 'C' && c_uni > 0 && c_uni <= 255)
-		|| (TYPE == 'c' && MODF[0] == 'l' && (c_uni > 0 && c_uni <= 255)))
-		&& MB_CUR_MAX == 4)
+	else if ((TYPE == 'C' || (TYPE == 'c' && MODF[0] == 'l'))
+		&& (c_uni > 0 && c_uni <= 255) && MB_CUR_MAX == 4)
 		write_symbol_c_uni(c_uni, pf);
-	else if ((TYPE == 'C' && c_uni > 0 && c_uni <= 255)
-		|| (TYPE == 'c' && MODF[0] == 'l' && (c_uni > 0 && c_uni <= 255)))
+	else if ((TYPE == 'C' || (TYPE == 'c' && MODF[0] == 'l'))
+		&& (c_uni > 0 && c_uni <= 255))
 		write_symbol_c((int)c_uni, pf);
 	else
 		write_symbol_c(c, pf);
@@ -100,14 +97,11 @@ int			write_type_c(va_list ap, t_str *pf)
 	if ((TYPE == 'C' || (TYPE == 'c' && MODF[0] == 'l'))
 		&& ((c_uni > 255 && MB_CUR_MAX == 1) || c_uni < 0))
 		return (1);
-	if (WIDTH != 0)
+	else if (WIDTH != 0)
 		work_with_width(c_uni, c, pf);
 	else
 	{
-		if ((TYPE == 'C' && MB_CUR_MAX == 4) || TYPE == 'C')
-			write_to_buffer(pf, c_uni);
-		else if (TYPE == 'c' && MODF[0] == 'l' && (MB_CUR_MAX == 4
-			|| (c_uni > 0 && c_uni <= 255)))
+		if (TYPE == 'C' || (TYPE == 'c' && MODF[0] == 'l'))
 			write_to_buffer(pf, c_uni);
 		else
 			write_to_buffer(pf, c);

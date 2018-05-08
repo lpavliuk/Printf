@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:48:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/08 12:43:35 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/08 17:18:36 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <wchar.h>
 # include "libft/libft.h"
 
-//# include <stdio.h>
+# include <stdio.h>
 
 # define TYPE pf->type
 # define MODF pf->modifier

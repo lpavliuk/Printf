@@ -6,13 +6,13 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 19:48:08 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/07 20:39:02 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/08 15:13:12 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int		separator(char c)
+static int	separator(char c)
 {
 	if (c != 's' && c != 'S' && c != 'p' && c != 'd'
 		&& c != 'D' && c != 'i' && c != 'o' &&
@@ -23,30 +23,9 @@ static int		separator(char c)
 		return (0);
 }
 
-static int		check_modifier(const char *format, int i, t_str *pf)
+static void	check_flags(const char *format, int *i, t_str *pf)
 {
-	int		k;
-
-	k = 0;
-	MODF[k] = format[i];
-	k++;
-	i++;
-	if ((format[i] == 'l' && format[i - 1] == 'l')
-		|| (format[i] == 'h' && format[i - 1] == 'h'))
-	{
-		MODF[k] = format[i];
-		k++;
-		i++;
-	}
-	return (i);
-}
-
-static void		check_flags(const char *format, int *i, t_str *pf)
-{
-	int k;
-
-	k = 0;
-	while ((format[*i] == '0' || !ft_isdigit(format[*i])) && k < 5)
+	while ((format[*i] == '0' || !ft_isdigit(format[*i])))
 	{
 		if (format[*i] == '+' || format[*i] == '-')
 		{
@@ -67,7 +46,7 @@ static void		check_flags(const char *format, int *i, t_str *pf)
 	}
 }
 
-static void		check_star(va_list ap, const char *format, t_str *pf, int *i)
+static void	check_star(va_list ap, const char *format, t_str *pf, int *i)
 {
 	int n;
 
@@ -96,7 +75,33 @@ static void		check_star(va_list ap, const char *format, t_str *pf, int *i)
 		PREC = 0;
 }
 
-int				check_percent(va_list ap, const char *format, t_str *pf)
+static int	check_another(va_list ap, const char *format, int *i, t_str *pf)
+{
+	while (separator(format[*i]) && format && format[*i] != '\0')
+	{
+		if ((format[*i] == '.' && ++DOT) || format[*i] == '*')
+			check_star(ap, format, pf, &(*i));
+		else if (format[*i] == 'h' || format[*i] == 'l'
+			|| format[*i] == 'j' || format[*i] == 'z')
+		{
+			MODF[0] = format[*i];
+			(*i)++;
+			if ((format[*i] == 'l' && format[*i - 1] == 'l')
+				|| (format[*i] == 'h' && format[*i - 1] == 'h'))
+				MODF[1] = format[(*i)++];
+			if (format[*i] == '\0')
+				return (1);
+			break ;
+		}
+		else if (!ft_isdigit(format[*i]) && format[*i] != ' ')
+			break ;
+		if (separator(format[*i]))
+			(*i)++;
+	}
+	return (0);
+}
+
+int			check_percent(va_list ap, const char *format, t_str *pf)
 {
 	int	i;
 
@@ -106,24 +111,9 @@ int				check_percent(va_list ap, const char *format, t_str *pf)
 		return (i);
 	check_star(ap, format, pf, &i);
 	write_space_to_buffer(pf, format, &i);
-	while (separator(format[i]) && format && format[i] != '\0')
-	{
-		if ((format[i] == '.' && ++DOT) || format[i] == '*')
-			check_star(ap, format, pf, &i);
-		else if (format[i] == 'h' || format[i] == 'l'
-			|| format[i] == 'j' || format[i] == 'z')
-		{
-			i = check_modifier(format, i, pf);
-			if (format[i] == '\0')
-				return (i);
-			break ;
-		}
-		else if (!ft_isdigit(format[i]) && format[i] != ' ')
-			break ;
-		if (separator(format[i]))
-			i++;
-	}
-	if(format[i] != '\0')
+	if (check_another(ap, format, &i, pf))
+		return (i);
+	if (format[i] != '\0')
 		TYPE = format[i];
 	return ((i == 0) ? i : i + 1);
 }

@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:37:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/08 12:45:23 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/08 17:53:17 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void			check_buffer(t_str *pf, int turn_off, int clean_pf)
 	if (turn_off || N > 1023)
 	{
 		write(1, BUFFER, N);
-		pf->symbols += ft_strlen(BUFFER);
+		pf->symbols += N;
 		ft_bzero(BUFFER, 1024);
 		N = 0;
 	}
@@ -61,6 +61,17 @@ void			check_buffer(t_str *pf, int turn_off, int clean_pf)
 	}
 }
 
+void			write_struct(t_str *pf)
+{
+	printf("TYPE: %c\n", TYPE);
+	printf("MODF: %s\n", MODF);
+	printf("PREC: %d\n", PREC);
+	printf("WIDTH: %d\n", WIDTH);
+	printf("MINUS: %d\n", MINUS);
+	printf("HASH: %d\n", HASH);
+	printf("DOT: %d\n", DOT);
+}
+
 static int		work_while(const char *format, t_str *pf, va_list ap)
 {
 	int i;
@@ -73,11 +84,9 @@ static int		work_while(const char *format, t_str *pf, va_list ap)
 		{
 			if ((i = check_percent(ap, format, pf)))
 				format += i;
+			write_struct(pf);
 			if (check_type(ap, pf))
-			{
-				ft_bzero(BUFFER, 1024);
 				return (-1);
-			}
 			check_buffer(pf, 1, 1);
 			if (i == 0)
 				format++;
@@ -104,8 +113,12 @@ int				ft_printf(const char *format, ...)
 	N = 0;
 	pf->symbols = 0;
 	if ((i = work_while(format, pf, ap)) == -1)
+	{
+		free(pf);
 		return (-1);
+	}
 	check_buffer(pf, 1, 0);
+	free(pf);
 	va_end(ap);
 	return (pf->symbols);
 }
