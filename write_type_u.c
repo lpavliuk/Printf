@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 12:23:05 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/08 14:47:40 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/08 18:40:48 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	write_to_buffer_un_digital(uintmax_t un_i, short int n, t_str *pf)
 {
-	if (PREC > WIDTH)
+	if (PREC && PREC > WIDTH)
 		WIDTH = PREC;
 	if (WIDTH < 0)
 	{

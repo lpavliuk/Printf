@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 12:25:37 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/08 12:57:44 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/08 20:05:41 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,40 @@ uintmax_t	check_modifier_un_int(va_list ap, t_str *pf)
 	return (un_i);
 }
 
+static void	write_to(uintmax_t un_i, t_str *pf, char width, short int *n)
+{
+	if (!width)
+	{
+		if (HASH || PREC > (*n))
+		{
+			BUFFER[N++] = '0';
+			(*n)++;
+		}
+		if (DOT && PREC == 0 && un_i == 0 && !HASH)
+			return ;
+		else
+			ft_unputnbr_base(un_i, 8, 0, pf);
+	}
+	else
+	{
+		if (PREC < (*n) && !ZERO && HASH)
+			BUFFER[N++] = '0';
+		if (DOT && PREC == 0 && un_i == 0)
+			return ;
+		else
+			ft_unputnbr_base(un_i, 8, 0, pf);
+	}
+}
+
 static void	write_to_buffer_un_digital(uintmax_t un_i, short int n, t_str *pf)
 {
+	if (WIDTH && !HASH && DOT && PREC == 0 && un_i == 0)
+		n = 0;
 	if (WIDTH < 0)
 	{
-		if (HASH && un_i > 0)
-			BUFFER[N++] = '0';
-		ft_unputnbr_base(un_i, 8, 0, pf);
+		write_to(un_i, pf, 0, &n);
+		ft_putendl(ft_itoa(n));
+		ft_putendl(ft_itoa(WIDTH));
 		while (WIDTH++ < (n * (-1)))
 			write_to_buffer(pf, ' ');
 	}
@@ -49,16 +76,14 @@ static void	write_to_buffer_un_digital(uintmax_t un_i, short int n, t_str *pf)
 			BUFFER[N++] = '0';
 		while (WIDTH-- > n)
 		{
-			if ((WIDTH == PREC) && (PREC < n) && HASH && un_i > 0)
+			if ((WIDTH == PREC) && (PREC > n) && HASH && un_i > 0)
 				BUFFER[N++] = '0';
 			else if (WIDTH < PREC || (ZERO && !MINUS))
 				write_to_buffer(pf, '0');
 			else
 				write_to_buffer(pf, ' ');
 		}
-		if (PREC < n && !ZERO && HASH && un_i > 0)
-			BUFFER[N++] = '0';
-		ft_unputnbr_base(un_i, 8, 0, pf);
+		write_to(un_i, pf, 1, &n);
 	}
 }
 
@@ -69,19 +94,19 @@ int			write_type_o(va_list ap, t_str *pf)
 
 	un_i = check_modifier_un_int(ap, pf);
 	n = ft_count(un_i, 8);
-	if ((TYPE == 'o' || TYPE == 'O') && HASH && PREC < n)
-		n++;
-	if (PREC && WIDTH < PREC)
-		n++;
 	if (DOT || PREC)
 		ZERO = 0;
-	if (PREC && PREC > WIDTH && ++ZERO)
+	if (PREC && PREC > WIDTH && ++ZERO && WIDTH > 0)
 	{
 		n -= 2;
 		WIDTH = PREC;
 	}
-	if (PREC && (PREC > n))
+	if (PREC && (PREC > n) && WIDTH > 0)
 		WIDTH--;
+	if (HASH && PREC < n)
+		n++;
+	if (PREC && WIDTH < PREC && WIDTH > 0)
+		n++;
 	write_to_buffer_un_digital(un_i, n, pf);
 	return (0);
 }
