@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:48:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/07 16:52:47 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/08 12:43:35 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,10 @@ typedef struct	s_str
 
 int				ft_printf(const char *format, ...);
 int				check_percent(va_list ap, const char *format, t_str *pf);
-int				write_type_o_x_p(va_list ap, t_str *pf);
-int				write_type_digital(va_list ap, t_str *pf);
+int				write_type_x_p(va_list ap, t_str *pf);
+int				write_type_d_i(va_list ap, t_str *pf);
+int				write_type_o(va_list ap, t_str *pf);
+int				write_type_u(va_list ap, t_str *pf);
 int				write_type_c(va_list ap, t_str *pf);
 int				write_type_s(va_list ap, t_str *pf);
 void			write_symbol_s_uni(t_str *pf, wchar_t *str_uni, int n);

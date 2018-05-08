@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:37:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/07 21:39:57 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/08 12:45:23 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@ static int		check_type(va_list ap, t_str *pf)
 	i = 0;
 	if (TYPE == 's' || TYPE == 'S')
 		i = write_type_s(ap, pf);
-	else if (TYPE == 'd' || TYPE == 'D' || TYPE == 'i'
-		|| TYPE == 'u' || TYPE == 'U')
-		i = write_type_digital(ap, pf);
-	else if (pf->type == 'x' || pf->type == 'X'
-		|| TYPE == 'o' || TYPE == 'O' || TYPE == 'p')
-		i = write_type_o_x_p(ap, pf);
+	else if (TYPE == 'd' || TYPE == 'D' || TYPE == 'i')
+		i = write_type_d_i(ap, pf);
+	else if (TYPE == 'u' || TYPE == 'U')
+		i = write_type_u(ap, pf);
+	else if (TYPE == 'x' || TYPE == 'X' || TYPE == 'p')
+		i = write_type_x_p(ap, pf);
+	else if (TYPE == 'o' || TYPE == 'O')
+		i = write_type_o(ap, pf);
 	else
 	{
 		DOT = 0;
