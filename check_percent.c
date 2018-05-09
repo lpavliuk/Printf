@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 19:48:08 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/08 15:13:12 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/09 12:19:07 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static void	check_flags(const char *format, int *i, t_str *pf)
 		{
 			if (format[*i] == '-')
 				MINUS++;
+			else
+				PLUS++;
 		}
 		else if (format[*i] == '#')
 			HASH++;

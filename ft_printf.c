@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:37:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/08 17:53:17 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/09 12:45:29 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void			check_buffer(t_str *pf, int turn_off, int clean_pf)
 		TYPE = 0;
 		SPACE = 0;
 		HASH = 0;
+		PLUS = 0;
 		MINUS = 0;
 		ZERO = 0;
 		DOT = 0;
@@ -67,9 +68,12 @@ void			write_struct(t_str *pf)
 	printf("MODF: %s\n", MODF);
 	printf("PREC: %d\n", PREC);
 	printf("WIDTH: %d\n", WIDTH);
+	printf("PLUS: %d\n", PLUS);
 	printf("MINUS: %d\n", MINUS);
 	printf("HASH: %d\n", HASH);
+	printf("ZERO: %d\n", ZERO);
 	printf("DOT: %d\n", DOT);
+	printf("SPACE: %d\n", SPACE);
 }
 
 static int		work_while(const char *format, t_str *pf, va_list ap)

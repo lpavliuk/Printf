@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:48:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/08 17:18:36 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/09 12:18:38 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define MODF pf->modifier
 # define SPACE pf->space
 # define HASH pf->hash
+# define PLUS pf->plus
 # define MINUS pf->minus
 # define ZERO pf->zero
 # define DOT pf->dot
@@ -36,6 +37,7 @@ typedef struct	s_str
 {
 	char		type;
 	char		space;
+	char		plus;
 	char		minus;
 	char		zero;
 	char		dot;

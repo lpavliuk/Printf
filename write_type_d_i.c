@@ -6,31 +6,61 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 12:21:22 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/08 18:41:34 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/09 14:02:20 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+static void	check_flags(intmax_t *i, short int n, t_str *pf)
+{
+	if (PLUS && *i >= 0)
+		BUFFER[N++] = '+';
+	else if (SPACE && !PLUS && *i >= 0)
+		BUFFER[N++] = ' ';
+	else if (((PREC || ZERO) && WIDTH > n) && *i < 0)
+	{
+		BUFFER[N++] = '-';
+		(*i) *= -1;
+		if (PLUS)
+			WIDTH++;
+	}
+	if (PLUS || (SPACE && !ZERO))
+	{
+		if (WIDTH < 0)
+			WIDTH++;
+		else
+			WIDTH--;
+	}
+}
+
 static void	write_to_buffer_digital(intmax_t i, short int n, t_str *pf)
 {
-	if (PREC > WIDTH)
-		WIDTH = PREC;
 	if (WIDTH < 0)
 	{
+		check_flags(&i, n, pf);
+		while (PREC-- > n && WIDTH++)
+			write_to_buffer(pf, '0');
 		ft_putnbr_base(i, 10, 0, pf);
 		while (WIDTH++ < (n * (-1)))
 			write_to_buffer(pf, ' ');
 	}
 	else
 	{
+		// ft_putendl(ft_itoa(WIDTH));
+		if (WIDTH < n || ZERO || WIDTH == PREC)
+			check_flags(&i, n, pf);
 		while (WIDTH-- > n)
 		{
+			if (WIDTH == PREC)
+				check_flags(&i, n, pf);
 			if (WIDTH < PREC || (ZERO && !MINUS))
 				write_to_buffer(pf, '0');
 			else
 				write_to_buffer(pf, ' ');
 		}
+		if (WIDTH && WIDTH == n && !ZERO)
+			check_flags(&i, n, pf);
 		ft_putnbr_base(i, 10, 0, pf);
 	}
 }
@@ -55,8 +85,10 @@ int			write_type_d_i(va_list ap, t_str *pf)
 	else
 		i = va_arg(ap, int);
 	n = ft_count(i, 10);
-	if (DOT || PREC)
+	if ((DOT || PREC) && i >= 0)
 		ZERO = 0;
+	if (PREC > WIDTH && WIDTH >= 0)
+		WIDTH = PREC;
 	write_to_buffer_digital(i, n, pf);
 	return (0);
 }
