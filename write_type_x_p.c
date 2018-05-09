@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 12:38:46 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/09 16:10:06 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/09 19:06:41 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,18 @@ static int	write_width(uintmax_t un_i, t_str *pf, short int n)
 		else
 			write_to_buffer(pf, ' ');
 	}
-	if ((TYPE == 'p' && !ZERO )|| (PREC < n && !ZERO && HASH && un_i != 0))
+	if ((TYPE == 'p' && !ZERO) || (PREC < n && !ZERO && HASH && un_i != 0))
 		check_hash(pf);
 	if (TYPE == 'x' && DOT && PREC == 0 && WIDTH >= 0)
 		write_to_buffer(pf, ' ');
-	else if (TYPE == 'x' && DOT && PREC == 0 && un_i == 0)
+	else if ((TYPE == 'x' || TYPE == 'p') && DOT && PREC == 0 && un_i == 0)
 		return (1);
 	else
 	{
 		if (TYPE == 'x' || TYPE == 'p')
 			ft_unputnbr_base(un_i, 16, 0, pf);
+		else if (DOT && PREC == 0 && un_i == 0)
+			return (0);
 		else
 			ft_unputnbr_base(un_i, 16, 1, pf);
 	}
@@ -91,6 +93,8 @@ int			write_type_x_p(va_list ap, t_str *pf)
 	{
 		ZERO++;
 		n -= 2;
+		if ((TYPE == 'x' || TYPE == 'X') && !HASH)
+			n++;
 		WIDTH = PREC;
 	}
 	write_to_buffer_un_digital(un_i, n, pf);

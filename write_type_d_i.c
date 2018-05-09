@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 12:21:22 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/09 15:42:14 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/09 18:13:54 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@ static void	check_flags(intmax_t *i, short int n, t_str *pf)
 {
 	if (PLUS && *i >= 0)
 		BUFFER[N++] = '+';
-	else if (SPACE && !PLUS && *i >= 0)
+	else if (SPACE && !PLUS && *i >= 0 && PREC < n)
 		BUFFER[N++] = ' ';
 	else if (((PREC || ZERO) && WIDTH > n) && *i < 0)
 	{
 		BUFFER[N++] = '-';
-		(*i) *= -1;
 		if (PLUS)
 			WIDTH++;
-		if (WIDTH == PREC)
+		else if (WIDTH == PREC)
 		{
 			WIDTH++;
 			PREC++;
 		}
+		(*i) *= -1;
 	}
 	if (PLUS || (SPACE && !ZERO))
 	{
@@ -39,16 +39,21 @@ static void	check_flags(intmax_t *i, short int n, t_str *pf)
 	}
 }
 
-static void	working_while(intmax_t i, short int n, t_str *pf)
+static void	working_while(intmax_t *i, short int n, t_str *pf)
 {
-	while (WIDTH-- > n)
+	while (WIDTH > n)
 	{
 		if (WIDTH == PREC)
-			check_flags(&i, n, pf);
-		if (WIDTH < PREC || (ZERO && !MINUS))
+		{
+			if (PLUS)
+				--N;
+			check_flags(&(*i), n, pf);
+		}
+		if (WIDTH <= PREC || (ZERO && !MINUS))
 			write_to_buffer(pf, '0');
 		else
 			write_to_buffer(pf, ' ');
+		WIDTH--;
 	}
 }
 
@@ -56,6 +61,8 @@ static void	write_to_buffer_digital(intmax_t i, short int n, t_str *pf)
 {
 	if (DOT && i == 0)
 		n = 0;
+	if (WIDTH && ZERO && !PLUS && !MINUS && i == 0)
+		WIDTH--;
 	if (WIDTH < 0)
 	{
 		check_flags(&i, n, pf);
@@ -69,7 +76,7 @@ static void	write_to_buffer_digital(intmax_t i, short int n, t_str *pf)
 	{
 		if (WIDTH < n || ZERO || WIDTH == PREC)
 			check_flags(&i, n, pf);
-		working_while(i, n, pf);
+		working_while(&i, n, pf);
 		if (WIDTH && WIDTH == n && !ZERO)
 			check_flags(&i, n, pf);
 		if (DOT && i == 0)

@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 12:25:37 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/09 16:33:51 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/09 18:52:25 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,12 @@ static void	write_to_buffer_un_digital(uintmax_t un_i, short int n, t_str *pf)
 	}
 	else
 	{
-		if (((PREC >= n && WIDTH <= PREC) || ZERO) && HASH && un_i > 0)
+		if (((PREC >= n && WIDTH <= PREC) || ZERO)
+			&& HASH && un_i > 0 && --WIDTH)
 			BUFFER[N++] = '0';
 		while (WIDTH-- > n)
 		{
-			if ((WIDTH == PREC) && (PREC > n) && HASH && un_i > 0)
+			if ((WIDTH == PREC) && HASH && un_i > 0)
 				BUFFER[N++] = '0';
 			else if (WIDTH < PREC || (ZERO && !MINUS))
 				write_to_buffer(pf, '0');
@@ -99,16 +100,11 @@ int			write_type_o(va_list ap, t_str *pf)
 		ZERO = 0;
 	if (PREC && PREC > WIDTH && ++ZERO)
 	{
-		if (WIDTH < 0 && (WIDTH * (-1)) < PREC && --n && --n)
+		if (WIDTH < 0 && (WIDTH * (-1)) < PREC)
 			WIDTH = PREC;
 		else if (WIDTH >= 0)
-		{
-			n -= 2;
 			WIDTH = PREC;
-		}
 	}
-	if (PREC && (PREC > n) && WIDTH > 0)
-		WIDTH--;
 	if (HASH && PREC < n)
 		n++;
 	if (PREC && WIDTH < PREC && WIDTH > 0)

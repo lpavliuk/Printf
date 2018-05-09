@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 19:48:08 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/09 12:19:07 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/09 19:13:30 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	check_star(va_list ap, const char *format, t_str *pf, int *i)
 	int n;
 
 	n = *i;
-	if (format[*i] == '*')
+	if (format[*i] == '*' && ++(*i))
 	{
 		WIDTH = va_arg(ap, int);
 		while (format[n] != '.' && !ft_isalpha(format[n]))
