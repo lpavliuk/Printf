@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 12:25:37 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/09 16:28:08 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/09 16:33:51 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ static void	write_to(uintmax_t un_i, t_str *pf, char width, short int *n)
 	{
 		if (PREC < (*n) && !ZERO && HASH && un_i != 0)
 			BUFFER[N++] = '0';
-		if (DOT && PREC == 0 && un_i == 0)
+		if (DOT && PREC == 0 && un_i == 0 && HASH)
+			BUFFER[N++] = '0';
+		else if (DOT && PREC == 0 && un_i == 0)
 			return ;
 		else
 			ft_unputnbr_base(un_i, 8, 0, pf);
