@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 12:21:22 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/09 14:02:20 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/09 15:42:14 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ static void	check_flags(intmax_t *i, short int n, t_str *pf)
 		(*i) *= -1;
 		if (PLUS)
 			WIDTH++;
+		if (WIDTH == PREC)
+		{
+			WIDTH++;
+			PREC++;
+		}
 	}
 	if (PLUS || (SPACE && !ZERO))
 	{
@@ -34,8 +39,23 @@ static void	check_flags(intmax_t *i, short int n, t_str *pf)
 	}
 }
 
+static void	working_while(intmax_t i, short int n, t_str *pf)
+{
+	while (WIDTH-- > n)
+	{
+		if (WIDTH == PREC)
+			check_flags(&i, n, pf);
+		if (WIDTH < PREC || (ZERO && !MINUS))
+			write_to_buffer(pf, '0');
+		else
+			write_to_buffer(pf, ' ');
+	}
+}
+
 static void	write_to_buffer_digital(intmax_t i, short int n, t_str *pf)
 {
+	if (DOT && i == 0)
+		n = 0;
 	if (WIDTH < 0)
 	{
 		check_flags(&i, n, pf);
@@ -47,20 +67,13 @@ static void	write_to_buffer_digital(intmax_t i, short int n, t_str *pf)
 	}
 	else
 	{
-		// ft_putendl(ft_itoa(WIDTH));
 		if (WIDTH < n || ZERO || WIDTH == PREC)
 			check_flags(&i, n, pf);
-		while (WIDTH-- > n)
-		{
-			if (WIDTH == PREC)
-				check_flags(&i, n, pf);
-			if (WIDTH < PREC || (ZERO && !MINUS))
-				write_to_buffer(pf, '0');
-			else
-				write_to_buffer(pf, ' ');
-		}
+		working_while(i, n, pf);
 		if (WIDTH && WIDTH == n && !ZERO)
 			check_flags(&i, n, pf);
+		if (DOT && i == 0)
+			return ;
 		ft_putnbr_base(i, 10, 0, pf);
 	}
 }
