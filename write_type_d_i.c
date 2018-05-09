@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 12:21:22 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/09 18:13:54 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/09 20:29:41 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static void	check_flags(intmax_t *i, short int n, t_str *pf)
 
 static void	working_while(intmax_t *i, short int n, t_str *pf)
 {
+	if (*i < 0 && PREC > n && WIDTH > n)
+		WIDTH--;
 	while (WIDTH > n)
 	{
 		if (WIDTH == PREC)

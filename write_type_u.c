@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 12:23:05 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/08 18:40:48 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/09 20:31:51 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static void	write_to_buffer_un_digital(uintmax_t un_i, short int n, t_str *pf)
 		WIDTH = PREC;
 	if (WIDTH < 0)
 	{
+		if (DOT && PREC == 0 && un_i == 0)
+			return ;
 		ft_unputnbr_base(un_i, 10, 0, pf);
 		while (WIDTH++ < (n * (-1)))
 			write_to_buffer(pf, ' ');
@@ -31,6 +33,8 @@ static void	write_to_buffer_un_digital(uintmax_t un_i, short int n, t_str *pf)
 			else
 				write_to_buffer(pf, ' ');
 		}
+		if (DOT && PREC == 0 && un_i == 0)
+			return ;
 		ft_unputnbr_base(un_i, 10, 0, pf);
 	}
 }

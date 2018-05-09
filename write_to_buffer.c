@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 16:00:43 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/09 16:02:01 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/09 19:58:23 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		write_to_buffer(t_str *pf, int c)
 	ft_cpy_to_buffer(pf, code, 5);
 }
 
-void		write_space_to_buffer(t_str *pf, const char *format, int *i)
+void		write_space_to_buffer(t_str *pf)
 {
 	int n;
 	int x;
@@ -76,10 +76,6 @@ void		write_space_to_buffer(t_str *pf, const char *format, int *i)
 				write_to_buffer(pf, ' ');
 		}
 		N = n;
-		if (format[*i] != '*')
-			*(i) += ft_count(WIDTH, 10);
-		else
-			(*i)++;
 		if (MINUS && WIDTH > 0)
 			WIDTH *= -1;
 	}
