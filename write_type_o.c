@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 12:25:37 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/08 20:05:41 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/09 12:12:50 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ static void	write_to(uintmax_t un_i, t_str *pf, char width, short int *n)
 		if (HASH || PREC > (*n))
 		{
 			BUFFER[N++] = '0';
-			(*n)++;
+			if (!HASH)
+				WIDTH++;
 		}
 		if (DOT && PREC == 0 && un_i == 0 && !HASH)
 			return ;
@@ -65,8 +66,6 @@ static void	write_to_buffer_un_digital(uintmax_t un_i, short int n, t_str *pf)
 	if (WIDTH < 0)
 	{
 		write_to(un_i, pf, 0, &n);
-		ft_putendl(ft_itoa(n));
-		ft_putendl(ft_itoa(WIDTH));
 		while (WIDTH++ < (n * (-1)))
 			write_to_buffer(pf, ' ');
 	}
@@ -96,10 +95,15 @@ int			write_type_o(va_list ap, t_str *pf)
 	n = ft_count(un_i, 8);
 	if (DOT || PREC)
 		ZERO = 0;
-	if (PREC && PREC > WIDTH && ++ZERO && WIDTH > 0)
+	if (PREC && PREC > WIDTH && ++ZERO)
 	{
-		n -= 2;
-		WIDTH = PREC;
+		if (WIDTH < 0 && (WIDTH * (-1)) < PREC && --n && --n)
+			WIDTH = PREC;
+		else if (WIDTH >= 0)
+		{
+			n -= 2;
+			WIDTH = PREC;
+		}
 	}
 	if (PREC && (PREC > n) && WIDTH > 0)
 		WIDTH--;
