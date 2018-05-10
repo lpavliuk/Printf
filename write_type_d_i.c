@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 12:21:22 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/10 12:33:37 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/10 13:12:00 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	check_flags(intmax_t *i, short int n, t_str *pf)
 {
 	if (PLUS && *i >= 0)
 		BUFFER[N++] = '+';
-	else if (SPACE && !PLUS && *i >= 0 && PREC <= n)
+	else if (SPACE && !PLUS && *i >= 0 && (WIDTH == PREC || WIDTH > PREC))
 		BUFFER[N++] = ' ';
 	else if (((PREC || ZERO) && WIDTH > n) && *i < 0)
 	{
@@ -30,7 +30,7 @@ static void	check_flags(intmax_t *i, short int n, t_str *pf)
 		}
 		(*i) *= -1;
 	}
-	if (PLUS || (SPACE && !ZERO))
+	if (PLUS || (SPACE && !ZERO && !WIDTH))
 	{
 		if (WIDTH < 0)
 			WIDTH++;
@@ -47,7 +47,7 @@ static void	working_while(intmax_t *i, short int n, t_str *pf)
 	{
 		if (WIDTH == PREC)
 		{
-			if (PLUS)
+			if (PLUS || (SPACE && !ZERO && WIDTH == PREC))
 				--N;
 			check_flags(&(*i), n, pf);
 		}
