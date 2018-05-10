@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 12:21:22 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/10 15:32:33 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/10 16:33:16 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	check_flags(intmax_t *i, short int n, t_str *pf)
 {
 	if (PLUS && *i >= 0)
 		BUFFER[N++] = '+';
-	else if (SPACE && !PLUS && *i >= 0)
+	else if (SPACE && !PLUS && *i >= 0 && WIDTH == PREC)
 		BUFFER[N++] = ' ';
 	else if (((PREC || ZERO) && WIDTH > n) && *i < 0)
 	{
@@ -27,7 +27,7 @@ static void	check_flags(intmax_t *i, short int n, t_str *pf)
 			PREC++;
 		(*i) *= -1;
 	}
-	if ((PLUS && (*i) >= 0 && WIDTH) || SPACE)
+	if ((PLUS && (*i) >= 0 && WIDTH) || (SPACE && WIDTH != PREC))
 	{
 		if (WIDTH < 0)
 			WIDTH++;
