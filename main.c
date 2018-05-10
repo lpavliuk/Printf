@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 15:25:48 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/10 13:47:46 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/10 16:12:44 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ int		main(void)
 
 	ft_putendl("---------| MY PRINTF |---------");
 
-	n = ft_printf("%15.4d\n", 0);
+	n = ft_printf("|%-5.3x|", 25);
 	printf("ft_n: %d\n", n);
 
 	printf("-------------| ORIGINAL |-----------\n");
 
-	n = printf("%15.4d\n", 0);
+	n = printf("|%-5.3x|", 25);
 	printf("n: %d\n", n);
 
 	//system("leaks -q test");

@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 12:25:37 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/09 18:52:25 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/10 15:41:30 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	write_to(uintmax_t un_i, t_str *pf, char width, short int *n)
 {
 	if (!width)
 	{
-		if (HASH || PREC > (*n))
+		if ((HASH || PREC > (*n)) && un_i != 0)
 		{
 			BUFFER[N++] = '0';
 			if (!HASH)
@@ -105,7 +105,7 @@ int			write_type_o(va_list ap, t_str *pf)
 		else if (WIDTH >= 0)
 			WIDTH = PREC;
 	}
-	if (HASH && PREC < n)
+	if (HASH && PREC < n && un_i != 0)
 		n++;
 	if (PREC && WIDTH < PREC && WIDTH > 0)
 		n++;

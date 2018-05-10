@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 12:38:46 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/09 19:06:41 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/10 16:21:36 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,16 @@ int			write_type_x_p(va_list ap, t_str *pf)
 	n = ft_count(un_i, 16);
 	if (TYPE == 'p' || (HASH && un_i != 0))
 		n += 2;
-	else if (PREC && WIDTH < PREC)
+	else if (PREC && WIDTH < PREC && un_i != 0)
 		n++;
 	if (DOT || PREC)
 		ZERO = 0;
 	if (PREC && PREC > WIDTH)
 	{
 		ZERO++;
-		n -= 2;
-		if ((TYPE == 'x' || TYPE == 'X') && !HASH)
+		if (un_i != 0 || TYPE == 'p')
+			n -= 2;
+		if ((TYPE == 'x' || TYPE == 'X') && !HASH && un_i != 0)
 			n++;
 		WIDTH = PREC;
 	}

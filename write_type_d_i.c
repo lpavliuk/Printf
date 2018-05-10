@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 12:21:22 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/10 13:47:27 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/10 15:32:33 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,22 @@ static void	check_flags(intmax_t *i, short int n, t_str *pf)
 {
 	if (PLUS && *i >= 0)
 		BUFFER[N++] = '+';
-	else if (SPACE && !PLUS && *i >= 0 && (WIDTH == PREC || WIDTH > PREC))
+	else if (SPACE && !PLUS && *i >= 0)
 		BUFFER[N++] = ' ';
 	else if (((PREC || ZERO) && WIDTH > n) && *i < 0)
 	{
 		BUFFER[N++] = '-';
 		if (PLUS)
 			WIDTH++;
-		else if (WIDTH == PREC)
-		{
-			WIDTH++;
+		else if (WIDTH == PREC && ++WIDTH)
 			PREC++;
-		}
 		(*i) *= -1;
 	}
-	if ((PLUS && (*i) >= 0 && WIDTH) || (SPACE && !ZERO && !WIDTH))
+	if ((PLUS && (*i) >= 0 && WIDTH) || SPACE)
 	{
 		if (WIDTH < 0)
 			WIDTH++;
-		else if (DOT && (*i) == 0)
+		else if ((DOT && (*i) == 0) || (SPACE && *i == 0 && !PLUS))
 			return ;
 		else
 			WIDTH--;
@@ -65,7 +62,8 @@ static void	write_to_buffer_digital(intmax_t i, short int n, t_str *pf)
 {
 	if (DOT && i == 0)
 		n = 0;
-	if (WIDTH && ZERO && !PLUS && !MINUS && i == 0)
+	if (((PLUS && WIDTH && !ZERO && !DOT)
+		|| (SPACE && WIDTH && !PLUS && !DOT)) && !MINUS && i == 0)
 		WIDTH--;
 	if (WIDTH < 0)
 	{
@@ -81,7 +79,7 @@ static void	write_to_buffer_digital(intmax_t i, short int n, t_str *pf)
 		if (WIDTH < n || ZERO || WIDTH == PREC)
 			check_flags(&i, n, pf);
 		working_while(&i, n, pf);
-		if (WIDTH && WIDTH == n && !ZERO && !SPACE)
+		if (WIDTH && WIDTH == n && !ZERO)
 			check_flags(&i, n, pf);
 		if (DOT && i == 0)
 			return ;
