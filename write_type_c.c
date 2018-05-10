@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:12:06 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/09 17:12:10 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/10 13:27:36 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,10 @@ static void	check_zero(wchar_t c_uni, t_str *pf)
 {
 	if (c_uni == 0)
 		BUFFER[N++] = '\0';
+	else if ((c_uni >= 0 && c_uni <= 255) && MB_CUR_MAX == 1)
+		write_symbol_c((int)c_uni, pf);
 	else
-		write_to_buffer(pf, c_uni);
+		write_symbol_c_uni(c_uni, pf);
 }
 
 static int	work_with_width(wchar_t c_uni, char c, t_str *pf)
