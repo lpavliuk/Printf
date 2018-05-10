@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:37:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/10 16:54:14 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/10 21:33:08 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@ static int		work_while(const char *format, t_str *pf, va_list ap)
 	while (format && *format != '\0')
 	{
 		check_buffer(pf, 0, 1);
+		if (*format == '{')
+		{
+			write_colors(format + 1, i, pf);
+			format += i;
+		}
 		if (*format == '%' && *(format + 1) != '\0')
 		{
 			if ((i = check_percent(ap, format, pf)))
