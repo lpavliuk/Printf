@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:37:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/10 21:33:08 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/10 22:32:07 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,17 @@ void			check_buffer(t_str *pf, int turn_off, int clean_pf)
 	}
 }
 
-static int		work_while(const char *format, t_str *pf, va_list ap)
+static int		work_while(const char *format, int i, t_str *pf, va_list ap)
 {
-	int i;
-
-	i = 0;
 	while (format && *format != '\0')
 	{
 		check_buffer(pf, 0, 1);
 		if (*format == '{')
 		{
-			write_colors(format + 1, i, pf);
+			i = write_colors(format, pf);
 			format += i;
 		}
-		if (*format == '%' && *(format + 1) != '\0')
+		else if (*format == '%' && *(format + 1) != '\0')
 		{
 			if ((i = check_percent(ap, format, pf)))
 				format += i;
@@ -87,10 +84,7 @@ static int		work_while(const char *format, t_str *pf, va_list ap)
 			continue ;
 		}
 		if (*format != '%')
-		{
-			BUFFER[N] = *format;
-			N++;
-		}
+			BUFFER[N++] = *format;
 		format++;
 	}
 	return (0);
@@ -108,7 +102,7 @@ int				ft_printf(const char *format, ...)
 	ft_bzero(BUFFER, 42);
 	N = 0;
 	pf->symbols = 0;
-	if ((i = work_while(format, pf, ap)) == -1)
+	if ((i = work_while(format, i, pf, ap)) == -1)
 	{
 		free(pf);
 		return (-1);

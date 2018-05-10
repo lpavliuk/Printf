@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 15:25:48 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/10 21:05:52 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/10 22:27:15 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		main(void)
 
 	ft_putendl("---------| MY PRINTF |---------");
 
-	n = ft_printf("{red} %*.5i", 5, 42);
+	n = ft_printf("{green} %*.2s {blue} %10d {eoc}\n", 10, str, 42);
 	printf("ft_n: %d\n", n);
 
 	printf("-------------| ORIGINAL |-----------\n");

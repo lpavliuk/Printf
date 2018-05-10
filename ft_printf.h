@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:48:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/10 21:06:03 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/10 22:13:01 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int				write_type_s(va_list ap, t_str *pf);
 void			write_symbol_s_uni(t_str *pf, wchar_t *str_uni, int n);
 void			write_to_buffer(t_str *pf, int c);
 void			write_space_to_buffer(t_str *pf);
-int				write_colors(const char *format, int i, t_str *pf);
+int				write_colors(const char *format, t_str *pf);
 void			check_buffer(t_str *pf, int turn_off, int clean_pf);
 void			ft_cpy_to_buffer(t_str *pf, unsigned char *code, int len);
 void			ft_putnbr_base(intmax_t n, short int base, char big, t_str *pf);
