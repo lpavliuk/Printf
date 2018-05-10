@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 12:21:22 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/10 13:12:00 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/10 13:18:07 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	write_to_buffer_digital(intmax_t i, short int n, t_str *pf)
 		if (WIDTH < n || ZERO || WIDTH == PREC)
 			check_flags(&i, n, pf);
 		working_while(&i, n, pf);
-		if (WIDTH && WIDTH == n && !ZERO)
+		if (WIDTH && WIDTH == n && !ZERO && !SPACE)
 			check_flags(&i, n, pf);
 		if (DOT && i == 0)
 			return ;
