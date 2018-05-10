@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 12:21:22 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/10 13:18:07 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/10 13:47:27 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,12 @@ static void	check_flags(intmax_t *i, short int n, t_str *pf)
 		}
 		(*i) *= -1;
 	}
-	if (PLUS || (SPACE && !ZERO && !WIDTH))
+	if ((PLUS && (*i) >= 0 && WIDTH) || (SPACE && !ZERO && !WIDTH))
 	{
 		if (WIDTH < 0)
 			WIDTH++;
+		else if (DOT && (*i) == 0)
+			return ;
 		else
 			WIDTH--;
 	}
