@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:48:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/10 12:38:08 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/10 16:53:49 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct	s_str
 	char		modifier[3];
 	int			precision;
 	int			width;
-	char		buffer[101];
+	char		buffer[42];
 	int			n;
 	int			symbols;
 	int			n_uni;

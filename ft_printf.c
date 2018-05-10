@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 15:37:14 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/10 12:37:58 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/10 16:54:14 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ static int		check_type(va_list ap, t_str *pf)
 
 void			check_buffer(t_str *pf, int turn_off, int clean_pf)
 {
-	if (turn_off || N > 100)
+	if (turn_off || N > 41)
 	{
 		write(1, BUFFER, N);
 		pf->symbols += N;
-		ft_bzero(BUFFER, 101);
+		ft_bzero(BUFFER, 42);
 		N = 0;
 	}
 	if (clean_pf)
@@ -100,7 +100,7 @@ int				ft_printf(const char *format, ...)
 	i = 0;
 	pf = malloc(sizeof(t_str));
 	va_start(ap, format);
-	ft_bzero(BUFFER, 101);
+	ft_bzero(BUFFER, 42);
 	N = 0;
 	pf->symbols = 0;
 	if ((i = work_while(format, pf, ap)) == -1)

@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 16:00:43 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/09 19:58:23 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/10 16:54:21 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		ft_cpy_to_buffer(t_str *pf, unsigned char *code, int len)
 		BUFFER[N++] = 0;
 	while (code[i] != '\0' && i < len)
 	{
-		if (N > 100)
+		if (N > 41)
 			check_buffer(pf, 0, 0);
 		BUFFER[N] = code[i];
 		i++;
