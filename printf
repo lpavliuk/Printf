@@ -1,15 +1,3 @@
-gcc \
-	ft_printf.c \
-	main.c \
-	check_percent.c \
-	write_type_c.c \
-	write_to_buffer.c \
-	write_type_s.c \
-	write_symbol_s_uni.c \
-	ft_putnbr_base.c \
-	write_type_d_i.c \
-	write_type_x_p.c \
-	write_type_o.c \
-	write_type_u.c -o test -L libft/ -lft -I ./
+gcc main.c libftprintf.a -o test -I ./
 ./test | cat -e 
 rm -f test

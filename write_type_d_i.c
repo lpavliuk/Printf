@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 12:21:22 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/09 20:29:41 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/10 12:33:37 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	check_flags(intmax_t *i, short int n, t_str *pf)
 {
 	if (PLUS && *i >= 0)
 		BUFFER[N++] = '+';
-	else if (SPACE && !PLUS && *i >= 0 && PREC < n)
+	else if (SPACE && !PLUS && *i >= 0 && PREC <= n)
 		BUFFER[N++] = ' ';
 	else if (((PREC || ZERO) && WIDTH > n) && *i < 0)
 	{
@@ -107,7 +107,7 @@ int			write_type_d_i(va_list ap, t_str *pf)
 	else
 		i = va_arg(ap, int);
 	n = ft_count(i, 10);
-	if ((DOT || PREC) && i >= 0)
+	if ((DOT || PREC) && PREC >= 0 && i >= 0)
 		ZERO = 0;
 	if (PREC > WIDTH && WIDTH >= 0)
 		WIDTH = PREC;

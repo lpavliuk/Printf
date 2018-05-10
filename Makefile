@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: opavliuk <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/26 16:04:15 by opavliuk          #+#    #+#              #
-#    Updated: 2018/04/16 22:51:13 by opavliuk         ###   ########.fr        #
+#    Updated: 2018/05/08 12:49:41 by opavliuk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,9 +76,20 @@ SRC=./ft_memset.c \
 	./ft_strtrim.c \
 	./ft_tolower.c \
 	./ft_toupper.c \
-	./get_next_line.c
+	./get_next_line.c \
+	./check_percent.c \
+	./ft_printf.c \
+	./ft_putnbr_base.c \
+	./write_symbol_s_uni.c \
+	./write_to_buffer.c \
+	./write_type_c.c \
+	./write_type_s.c \
+	./write_type_d_i.c \
+	./write_type_x_p.c \
+	./write_type_o.c \
+	./write_type_u.c
 OBJ=$(SRC:.c=.o)
-NAME=libft.a
+NAME=libftprintf.a
 
 all: $(NAME)
 

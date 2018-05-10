@@ -6,7 +6,7 @@
 /*   By: opavliuk <opavliuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 19:48:08 by opavliuk          #+#    #+#             */
-/*   Updated: 2018/05/09 20:16:44 by opavliuk         ###   ########.fr       */
+/*   Updated: 2018/05/10 12:22:06 by opavliuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +106,18 @@ static int	check_another(va_list ap, const char *format, int *i, t_str *pf)
 int			check_percent(va_list ap, const char *format, t_str *pf)
 {
 	int	i;
+	int n;
 
 	i = 1;
+	n = 0;
 	check_flags(format, &i, pf);
 	if (format[i] == '\0')
 		return (i);
 	check_star(ap, format, pf, &i);
+	if (format[i - 1] != '*')
+		n = ft_count(WIDTH, 10);
+	if (ft_isdigit(format[i]) || format[i] == '*')
+		check_star(ap, format, pf, &i);
 	write_space_to_buffer(pf);
 	if (check_another(ap, format, &i, pf))
 		return (i);
