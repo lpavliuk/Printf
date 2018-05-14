@@ -1,3 +1,0 @@
-gcc main.c libftprintf.a -o test -I ./
-./test
-rm -f test 
